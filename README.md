@@ -1,11 +1,5 @@
 # AngularJS ES6 Starter Kit
 
-### Demo Netlify: https://hardik-angularjs-kit.netlify.com/
-### Demo Heroku: https://hardik-angularjs-kit.herokuapp.com/
-
-[![Netlify Status](https://api.netlify.com/api/v1/badges/e33b05fe-f573-46bd-8a88-1c3cffa11587/deploy-status)](https://app.netlify.com/sites/hardik-angularjs-kit/deploys)   ![Heroku](https://heroku-badge.herokuapp.com/?app=hardik-angularjs-kit)
-
-
 
 This repo contains `webpack`, `AngularJS`, `ES6` and `Bootstrap 4`starter kit.
 

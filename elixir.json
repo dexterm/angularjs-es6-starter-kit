@@ -1,0 +1,9 @@
+{
+    "js": {
+        "outputFolder": "public/js"
+    },
+    "css": {
+        "outputFolder": "public/css"
+    },
+    "buildPath": "public/build"
+}
