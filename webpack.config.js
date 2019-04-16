@@ -62,6 +62,7 @@ const config = {
 			new OptimizeCssAssetsWebpackPlugin({})
 		]
 	},
+	watch:true,
 	plugins: [
 		new CleanWebpackPlugin('build'),
 		new ManifestPlugin(),
@@ -81,12 +82,19 @@ const config = {
 		new MiniCssExtractPlugin({
 			filename: "styles/[name].[hash].css",
 			chunkFilename: "styles/[id].[hash].css"
-		})
+        }),
+		new webpack.HotModuleReplacementPlugin(),
+        
 	],
 	devServer: {
 		port: 3000,
-		contentBase: './',
-		historyApiFallback: true
+        contentBase: './',
+		//contentBase: path.resolve(__dirname),
+    	//watchContentBase: true,
+		historyApiFallback: true,
+         watchOptions: {
+            poll: true
+        }
 	}
 };
 

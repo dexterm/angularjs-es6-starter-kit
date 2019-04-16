@@ -15,9 +15,9 @@ partialsModule.run(function($templateCache) {
                 tpl:requireContext(val),
 
                 //name is just the filename
-                name : val.split('/').pop()
+                //name : val.split('/').pop()
                 //name with full path
-                //name: val
+                name: val
             }
         });
     }
@@ -30,8 +30,8 @@ partialsModule.run(function($templateCache) {
      //console.debug(modules);
     let modules = requireAll( require.context("../", true, /\.(.htm|html)$/) );
     modules.map(function (val) {
-        console.log(val.name, '=====', val.tpl)
-        $templateCache.put(val.name, val.tpl);
+        //console.log(val.name, '=====', val.tpl)
+        $templateCache.put( val.name, val.tpl);
     })
 
 });

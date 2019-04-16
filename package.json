@@ -39,19 +39,26 @@
     "url-loader": "0.5.9",
     "webpack": "4.29.6",
     "webpack-cli": "^3.3.0",
-    "webpack-dev-server": "3.2.1",
+    "webpack-dev-server": "3.3.1",
     "webpack-manifest-plugin": "^2.0.4",
     "webpack-plugin-hash-output": "^3.2.1"
   },
   "dependencies": {
     "angular": "1.7.8",
+    "angular-acl": "^0.1.10",
     "angular-datatables": "^0.5.4",
+    "angular-sanitize": "^1.7.8",
+    "angular-translate": "^2.18.1",
+    "angular-translate-loader-static-files": "^2.18.1",
     "angular-ui-router": "1.0.22",
     "bootstrap": "4.3.1",
     "datatables.net": "^1.10.19",
     "datatables.net-bs4": "^1.10.19",
     "font-awesome": "4.7.0",
     "jquery": "3.3.1",
-    "popper.js": "1.14.7"
+    "popper.js": "1.14.7",
+    "restangular": "^1.6.1",
+    "satellizer": "^0.15.5",
+    "ui-router-breadcrumbs": "^1.2.4"
   }
 }

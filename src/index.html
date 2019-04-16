@@ -1,6 +1,6 @@
-<html>
+<html ng-app="angularjs-es6-starter-kit">
 
-<head>
+<head >
 	<title>AngularJS ES6 Starter-Kit</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,9 +8,19 @@
 	<base href="/">
 </head>
 
-<body ng-app="angularjs-es6-starter-kit">
-	<app-header></app-header>
-	<ui-view></ui-view>
+<body >
+	<!-- Page Preloder -->
+	<!--<div id="preloder"> 
+		<div class="loader"></div>
+	</div> -->
+	
+    <div class="wrapper">
+        <div ui-view="layout"></div>
+        <div class="control-sidebar-bg"></div>
+    </div>
+
+	<!-- <app-header></app-header>
+	<ui-view></ui-view> -->
 	<!-- build files will be injected here. -->
 </body>
 
