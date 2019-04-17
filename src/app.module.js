@@ -9,6 +9,7 @@ import './services/core.module';
 import './app.components';
 import './services/app.partials';
 import './app.config';
+import './app.controllers';
 
 const appModule = angular 
 	.module('angularjs-es6-starter-kit', [
@@ -29,6 +30,7 @@ const appModule = angular
         'pascalprecht.translate',
         'satellizer',
         'mm.acl',
+        'ui.bootstrap',
 		'datatables', 'datatables.bootstrap', 
 	]); 
 

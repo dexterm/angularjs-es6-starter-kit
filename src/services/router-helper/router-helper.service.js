@@ -1,4 +1,4 @@
-//import appRoutes from '../../config/app-routes'; 
+import appRoutes from '../../config/app-routes'; 
 
 
 export default function routerHelper($stateProvider, $urlRouterProvider, $locationProvider) {
@@ -17,13 +17,13 @@ export default function routerHelper($stateProvider, $urlRouterProvider, $locati
     } 
 
 	$urlRouterProvider.otherwise('/'); // setting default route
-	/*appRoutes.forEach((route) => {
-         console.debug('Route....', route.name)
-		//$stateProvider.state(route);
-	});*/
+	appRoutes.forEach((route) => {
+         console.log('Route....', route.name)
+		$stateProvider.state(route.name, route);
+	});
 
 
-    $stateProvider
+    /*$stateProvider
     .state('app', {
       abstract: true,
       views: {
@@ -32,7 +32,7 @@ export default function routerHelper($stateProvider, $urlRouterProvider, $locati
         },
         'header@app': {
           templateUrl: getView('header') 
-        },
+        }, 
         'footer@app': {
           templateUrl: getView('footer') 
         },
@@ -71,7 +71,7 @@ export default function routerHelper($stateProvider, $urlRouterProvider, $locati
         registerSuccess: null,
         successMsg: null
       }
-    })
+    }) */
 
 } 
 

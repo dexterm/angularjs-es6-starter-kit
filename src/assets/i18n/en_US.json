@@ -1,5 +1,15 @@
 {
   "HELLO": "Hello",
   "GUEST": "Visitor",
-  "DEXTEROUS_DEVELOPER": "Versatile Developer"
+  "DEXTEROUS_DEVELOPER": "Versatile Developer",
+  "GIT": "Git",
+  "PYTHON": "Python",
+  "OPENSTF": "OPENSTF",
+  "PHP": "PHP",
+  "MYSQL": "MYSQL",
+  "APPIUM":"APPIUM",
+  "RUST":"RUST",
+  "DOCKER":"Docker",
+  "SHELL":"Shell Script"
+  
 }

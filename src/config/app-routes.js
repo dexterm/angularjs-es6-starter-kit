@@ -50,16 +50,37 @@ export default [
         successMsg: null
       }
     },*/
-	{
-		name: 'home',
-		url: '/',
-		component: 'home'
+	{	  name:'app',
+	      abstract: true,
+	      views: {
+	        'layout': {
+	          templateUrl: './pages/layout/layout.page.html' 
+	        },
+	        'header@app': {
+	          templateUrl: './pages/header/header.page.html' 
+	        },
+	        'footer@app': {
+	          templateUrl: './pages/footer/footer.page.html' 
+	        },
+	        main: {}
+	      },
+	      data: {
+	        label: 'Root'
+	      }
 	},
 	{
-		name: 'user',
-		url: '/user',
-		component: 'user'
-	}
+		  name: 'app.landing',
+	      url: '/',
+	      data: {
+	        auth: false,
+	        label: 'Home',
+	      },
+	      views: {
+	        'main@app': {
+	          templateUrl: './pages/landing/landing.page.html'
+	        }
+	      }
+	 }
 ];
 
 

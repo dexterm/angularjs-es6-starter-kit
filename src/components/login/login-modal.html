@@ -1,0 +1,23 @@
+ <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">I'm a modal!</h3>
+        </div>
+        <FORM name="form.userForm" ng-submit="submitForm()" novalidate>
+        <div class="modal-body" id="modal-body">
+            <ul>{{items|json}}
+                <li ng-repeat="item in items">
+                    <a href="#" ng-click="$event.preventDefault(); selected.item = item">{{ item }}</a>
+                </li>
+            </ul>
+            Selected: <b>{{ $ctrl.selected.item }}</b> </br>
+            <input type="text" name="name" class="form-control" ng-model="username" required>
+            
+            <!--  -->Username: <input type="text" ng-model="user.username" > --><br/>
+            <p ng-show="form.userForm.name.$invalid && !form.userForm.name.$pristine" class="help-block">You name is required.</p>
+            Password: <input type="text" ng-model="user.password" ><br/>
+            
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="yes(user)">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="no()">Cancel</button>
+        </div>
+</FORM>

@@ -87,7 +87,7 @@ const config = {
         
 	],
 	devServer: {
-		port: 3000,
+		port: 7000,
         contentBase: './',
 		//contentBase: path.resolve(__dirname),
     	//watchContentBase: true,

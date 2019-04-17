@@ -1,13 +1,4 @@
-<!-- Page Top section -->
-	<section class="page-breadcrumbs set-bg" >
-		<div class="container">
-			<h2 style="color:#ffffff !important;">{{ 'DEXTEROUS_DEVELOPER' | translate }}</h2>
-			<div class="site-breadcrumb">
-                <ui-breadcrumb abstract=false></ui-breadcrumb>
 
-			</div>
-		</div>
-	</section>
     <!-- Page Top section end -->
 {{ 'HELLO' | translate }}    {{ 'GUEST' | translate }}    
 
@@ -17,54 +8,25 @@
 	<section class="features-section spad">
 		<div class="container">
 			<div class="section-title">
-				<img src="/assets/images/section-title-icon.png" alt="#">
-				<p>The best out there</p>
+				<img src="/assets/images/cyclist-icon.png" alt="#">
+				<p>Geared for IT...</p>
 				<h2>{{ 'DEXTEROUS_DEVELOPER' | translate }}</h2>
+				<h5>Skilled in Python 3.x, PHP7.x, C, Docker, ADB server, Appium, Selenium, Opencv...</h5>
 			</div>
-			<div class="row">
-				<div class="col-lg-4 col-md-6 feature-item">
-					<div class="ft-icon">
-						<i class="flaticon-domain-registration"></i>
-					</div>
-					<h4>Buy your Domain</h4>
-					<p>Nullam lacinia ex eleifend orci porttitor, suscipit interdum augue condimentum. Etiam pretium turpis eget nibh laoreet iaculis.</p>
-				</div>
-				<div class="col-lg-4 col-md-6 feature-item fi-center-top">
-					<div class="ft-icon">
-						<i class="flaticon-server"></i>
-					</div>
-					<h4>Cloud Database</h4>
-					<p>Ex eleifend orci porttitor, suscipit interdum augue condimentum. Etiam pretium turpis eget nibh laoreet iaculis. </p>
-				</div>
-				<div class="col-lg-4 col-md-6 feature-item">
-					<div class="ft-icon">
-						<i class="flaticon-devices"></i>
-					</div>
-					<h4>SSD-Only</h4>
-					<p>Suscipit interdum augue condimentum. Etiam pretium turpis eget nibh laoreet iaculis. Proin ac urna at lectus volutpat lobortis. </p>
-				</div>
-				<div class="col-lg-4 col-md-6 feature-item">
-					<div class="ft-icon">
-						<i class="flaticon-smartphone"></i>
-					</div>
-					<h4>Smart Contacts</h4>
-					<p>Nullam lacinia ex eleifend orci porttitor, suscipit interdum augue condimentum. Etiam pretium turpis eget nibh laoreet iaculis.</p>
-				</div>
-				<div class="col-lg-4 col-md-6 feature-item">
-					<div class="ft-icon">
-						<i class="flaticon-folder"></i>
-					</div>
-					<h4>Free Support</h4>
-					<p>Ex eleifend orci porttitor, suscipit interdum augue condimentum. Etiam pretium turpis eget nibh laoreet iaculis. </p>
-				</div>
-				<div class="col-lg-4 col-md-6 feature-item">
-					<div class="ft-icon">
-						<i class="flaticon-viral-marketing"></i>
-					</div>
-					<h4>Viral Marketing</h4>
-					<p>Suscipit interdum augue condimentum. Etiam pretium turpis eget nibh laoreet iaculis. Proin ac urna at lectus volutpat lobortis. </p>
-				</div>
-			</div>
+			
+			<div class="row" ng-include="'./pages/landing/python-stf-c.html'"></div> 
+			
+
+			<div class="row" ng-include="'./pages/landing/docker-appium-angular.html'">	</div>
+			
+			<div class="row" ng-include="'./pages/landing/php-git-bash.html'"> </div>
+			<div class="row" ng-include="'./pages/landing/rust.html'"> </div>
+			
 		</div>
 	</section>
 	<!-- Features section end -->
+	
+		<div ng-controller="LoginController as vm" class="modal-demo">
+		<input type ="button" ng-click="vm.openModal()" value="Open Modal" />
+	</div>
+	

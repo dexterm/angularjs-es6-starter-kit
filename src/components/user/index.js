@@ -1,4 +1,5 @@
 import userComponent from './user.component';
+import appRoutes from './routes';
 
 const userModule = angular.module('app.user', []);
 

@@ -716,8 +716,8 @@ ol {
 	display: -webkit-inline-box;
 	display: -ms-inline-flexbox;
 	display: inline-flex;
-	width: 87px;
-	height: 87px;
+	width: 100px;
+	height: 100px;
 	background: #eb2b63;
 	font-size: 43px;
 	color: #fff;
@@ -728,7 +728,7 @@ ol {
 	-ms-flex-pack: center;
 	justify-content: center;
 	border-radius: 50%;
-	margin-bottom: 40px;
+	margin-bottom: 10px;
 }
 
 .feature-item h4 {
@@ -1112,7 +1112,7 @@ ol {
 }
 
 .page-top-section {
-	height: 225px;
+	height: 175px;
     padding-top: 150px;
    background-image: url("/assets/images/page-top-bg.jpg");
 }
@@ -1500,6 +1500,9 @@ ol {
 	height: 685px;
 }
 
+
+
+
 /* ----------------
   Responsive
 ---------------------*/
@@ -1759,5 +1762,24 @@ ol {
 	}
 	.faq-accordion.accordion-area .panel-link:after {
 		right: 20px;
+	}
+	
+	
+}
+
+
+
+/* General sizing */
+ul.dropdown-lr {
+  width: 300px;
+}
+
+/* mobile fix */
+@media (max-width: 768px) {
+	.dropdown-lr h3 {
+		color: #eee;
+	}
+	.dropdown-lr label {
+		color: #eee;
 	}
 }
