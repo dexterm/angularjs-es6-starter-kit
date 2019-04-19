@@ -16,3 +16,4 @@ import 'satellizer';
 import 'angular-acl';
 import 'angular-translate-loader-static-files';
 import 'angular-ui-bootstrap'
+import 'angular-local-storage'

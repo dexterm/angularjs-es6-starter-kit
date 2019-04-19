@@ -2,39 +2,38 @@
 import './styles/styles.scss';
 //import requireAll( "./**/*.html" );
 //import routerHelperService from './services/router-helper/router-helper.service';
-    
+
 // loading shared module
-import './services/core.module';
+import './core.module';
 // loading all module components
-import './app.components';
+import './components/app.components';
 import './services/app.partials';
+
 import './app.config';
 import './app.controllers';
 
-const appModule = angular 
-	.module('angularjs-es6-starter-kit', [
+const appModule = angular
+	.module('dexterm.github', [
 		// shared module
 		'app.core',
 		'app.config',
-		// 3rd party modules 
+    'app.components',
+		// 3rd party modules
 		'ui.router',
-        'restangular', 
+        'restangular',
         'uiBreadcrumbs',
         'ngSanitize',
-		// application specific modules
-		//'app.header', 
-		'app.home',
-		'app.user',
+        'app.components',
         'app.partials',
-        'nav.header',
-        'pascalprecht.translate',
-        'satellizer',
+        //'pascalprecht.translate',
+        //'satellizer',
         'mm.acl',
         'ui.bootstrap',
-		'datatables', 'datatables.bootstrap', 
-	]); 
+		    'datatables',
+        'datatables.bootstrap',
+		//'ngStorage'
+	]);
 
-//appModule.config(routerHelperService); 
+//appModule.config(routerHelperService);
 
 export default appModule;
-

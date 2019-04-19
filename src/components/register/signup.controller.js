@@ -20,7 +20,7 @@
  * 
  */
 
-export default class LoginController {
+export default class SignupController {
 	constructor(
 		$log,
 		userService,
@@ -30,47 +30,49 @@ export default class LoginController {
 		$document,
 		$auth,
 		$q,
-		NoAPI,
-		SiteConfig
+		NoAPI
 	) {
 		'ngInject';
 
 		this.$log = $log;
-		this.$auth = $auth;
 		this.userService = userService;
-		this.SiteConfig = SiteConfig
-		
-	    var vm = this;
+		var vm = this
+	    //vm.user  = {"name": "dexter", "password":"11111111", "c_password":"11111111", "email":"djcm955@gmail.com","mobile":"1111111111" }
+	    vm.user  = {"name": "", "password":"", "c_password":"", "email":"","mobile":"" }
 		
 	      //provider is a string passed in via the html tag ng-click ex: ng-click=authenticate('google')
-	    this.authenticate = function(user, provider) {
+	    this.signup = function(user) {
+	    	  console.log('registering....', user)
 	    	  var deferred = $q.defer();
 	    	  
-	    	  //NoAPI is a service that implments the POST method of restangular
-	    	  var res = NoAPI.all('oauth/token').post(vm.user)
-	    	  
+	    	  var res = NoAPI.all('register').post(user)
+
 	          res.then(function(response) {
-	        	  //if success set the token for future use
-	        	  vm.$log.info('success', response)
-	        	  vm.userService.setToken(response)
+	        	  console.log('success', response)
 	        	  deferred.resolve(response);
 	          }, function(err) {
-	        	  vm.$log.debug('error', err)
+	        	  console.log('error', err)
 	        	  deferred.reject(err);
+	        	  
 	          })
 	          
 	          return deferred.promise;
 	    	  
+	    	  if ($auth.isAuthenticated()) {
+	    		  this.$log.info('Already logged in')
+	    	  }else{
+		    	  $auth.authenticate(provider); 
+	    	  }
+	    	  
 	    }  
 		
-		this.openLoginModal = function (parentSelector) {
-			let vm = this
-			vm.$log.info('TOKEN', this.userService.getToken() )
-	       
-			var size = 'md'
-			//var vm = this
+		
+		this.openSignupModal = function (parentSelector) {
+			var size = 'md' //sm, md, lg
+			var vm = this
 		    var parentElem = parentSelector ? 
 		    	      angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
+		      //console.log($ctrl.items,"***")
 		      var modalInstance = $uibModal.open({
 		          animation: vm.animationsEnabled,
 		          ariaLabelledBy: 'modal-title',
@@ -78,31 +80,34 @@ export default class LoginController {
 		          vm:vm,
 		          scope:$scope,
 		          backdrop:'static',
-		          templateUrl: './components/login/login-modal.html',
+		          templateUrl: './components/register/signup-modal.html',
 		          controller: function($scope, signin_form) {
+		        	  console.log('formmmmmmmmmm')
 		        	  $scope.submitForm = function () {
+		        		    
+		        		    console.log('Verifying if form is valid', $scope.signin_form.name.$modelValue)
 		        	        if ($scope.signin_form.$valid) {
-		        	        	//set username to same value as email
-		        	        	vm.user.username = vm.user.email
-		        	            vm.$log.debug('user form is in scope');
-		        	            vm.authenticate(vm.user)
-		        	              .then(function(res) {
+		        	            console.log('signup form is valid');
+		        	            vm.signup(vm.user)
+		        	              .then(function(response) {
+		        	            	  console.log('YEAHHH..', response)
 		        	            	  modalInstance.close('closed');
 		        	              }, function(err) {
-		        	            	  vm.$log.debug('OOHHHHH', err)
+		        	            	  console.log('OOHHHHH', err)
 		        	              })
 		        	              
 		        	        } else {
-		        	            vm.$log.info('Form is invalid');
+		        	            console.log('signup form is invalid');
 		        	        }
-		        	    };		        	  
-		        	  
+		        	    };	
+		        	    
 		          },
-		         // controllerAs: '$ctrl',
+		          //controllerAs: 'ctrl',
 		          size: size,
 		          appendTo: parentElem,
 		          resolve: {
 	                    signin_form: function () {
+	                    	console.log('FFF', $scope.signin_form)
 	                        return $scope.signin_form;
 	                    }
 	                }		      
@@ -118,6 +123,7 @@ export default class LoginController {
 		      
 		      // Close the modal if Yes button click
 		      $scope.OK = function (u) {
+		    	  console.log(u)
 		        modalInstance.close('Yes Button Clicked')
 		      };
 
@@ -130,22 +136,14 @@ export default class LoginController {
 		
 	};
 	
-	//must be called using vm.isAuthenticated
 	isAuthenticated() {
-		return this.userService.isAuthenticated() ? true : false 
-	}
-	
-	logout() {
-		this.userService.logout()
+		return this.userService.isAuthenticated() ? true : false;
 	}
 	
 	$onInit = () => {
-		//The login uses oauth to generate access and refresh tokens
-		//onload set the key value pairs to be sent to backend server
-		//set default values that will be submitted during login
-	    this.user  = {"email": "", "password":"" , "username":"", "client_id": this.SiteConfig.client_id,
-	    		"client_secret": this.SiteConfig.client_secret, "grant_type": "password", "scope":"*"}
-
+	      
+	    	      
+		//check if user is logged in and display username and logout button
 		this.$log.info('Checking Login Controler.....!!!');
 	};
 	

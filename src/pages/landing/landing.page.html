@@ -1,9 +1,8 @@
 
     <!-- Page Top section end -->
-{{ 'HELLO' | translate }}    {{ 'GUEST' | translate }}    
 
-    
-    
+
+
 	<!-- Features section -->
 	<section class="features-section spad">
 		<div class="container">
@@ -13,20 +12,26 @@
 				<h2>{{ 'DEXTEROUS_DEVELOPER' | translate }}</h2>
 				<h5>Skilled in Python 3.x, PHP7.x, C, Docker, ADB server, Appium, Selenium, Opencv...</h5>
 			</div>
-			
-			<div class="row" ng-include="'./pages/landing/python-stf-c.html'"></div> 
-			
+
+			<div class="row" ng-include="'./pages/landing/python-stf-c.html'"></div>
+
 
 			<div class="row" ng-include="'./pages/landing/docker-appium-angular.html'">	</div>
-			
+
 			<div class="row" ng-include="'./pages/landing/php-git-bash.html'"> </div>
 			<div class="row" ng-include="'./pages/landing/rust.html'"> </div>
-			
+
 		</div>
 	</section>
 	<!-- Features section end -->
-	
+<!--
 		<div ng-controller="LoginController as vm" class="modal-demo">
 		<input type ="button" ng-click="vm.openModal()" value="Open Modal" />
+		<br>
+		<button ng-click="vm.authenticate('google')">Sign in with Google</button>
+
+		<br/>
+
 	</div>
-	
+-->
+<a ui-sref="app.myprofile({})" ui-sref-opts="{reload: true}">User</a>

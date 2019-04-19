@@ -10,6 +10,18 @@
   "APPIUM":"APPIUM",
   "RUST":"RUST",
   "DOCKER":"Docker",
-  "SHELL":"Shell Script"
-  
+  "SHELL":"Shell Script",
+  "NAME":"Name",
+  "EMAIL":"Email",
+  "PASSWORD":"Password",
+  "CONFIRM_PASSWORD":"Confirm Password",
+  "MOBILE":"Mobile",
+  "SIGNUP_TITLE":"Signup",
+  "PASSWORD_MISMATCH":"Password and Confirm password must be identical",
+  "REQUIRED":"Required field",
+  "SIGN_ME_UP":"Sign me up!",
+  "OK":"Ok",
+  "CANCEL":"Cancel",
+  "LET_ME_IN":"Let me in!",
+  "SIGNIN_TITLE":"Sign In"
 }

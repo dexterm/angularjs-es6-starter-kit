@@ -1,23 +1,49 @@
  <div class="modal-header">
-            <h3 class="modal-title" id="modal-title">I'm a modal!</h3>
+            <h3 class="modal-title" style="margin:0 auto;" id="modal-title">{{'SIGNIN_TITLE' | translate}}</h3>
+            <button type="button" ng-click="CANCEL()" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
         </div>
-        <FORM name="form.userForm" ng-submit="submitForm()" novalidate>
+        
+         <FORM name="signin_form" ng-submit="submitForm()" novalidate>
         <div class="modal-body" id="modal-body">
-            <ul>{{items|json}}
-                <li ng-repeat="item in items">
-                    <a href="#" ng-click="$event.preventDefault(); selected.item = item">{{ item }}</a>
-                </li>
-            </ul>
-            Selected: <b>{{ $ctrl.selected.item }}</b> </br>
-            <input type="text" name="name" class="form-control" ng-model="username" required>
-            
-            <!--  -->Username: <input type="text" ng-model="user.username" > --><br/>
-            <p ng-show="form.userForm.name.$invalid && !form.userForm.name.$pristine" class="help-block">You name is required.</p>
-            Password: <input type="text" ng-model="user.password" ><br/>
-            
+
+			<!-- begin bootstrap  grid system -->
+			<div class="container">
+		    <div class="row">
+		        
+       
+		            <DIV class="form-group row">
+			            <div class="col-md-4">
+			            	<label for="email">{{'EMAIL' | translate }} </label>
+			            </div>	
+			            <div class="col-md-8">
+	            		    <input type="text" name="email" class="form-control" ng-model="vm.user.email" required >
+	            			<span ng-show="signin_form.email.$invalid && !signin_form.email.$pristine" class="help-block">{{'REQUIRED' | translate}}</span>
+			            </div>
+		            </DIV>
+		            
+		            <div class="form-group row">
+			            <div class="col-md-4">
+			            	<label for="name">{{'PASSWORD' | translate }} </label>
+			            </div>	
+			            <div class="col-md-8">
+            		    <input type="password" name="password" ng-model="vm.user.password" required >
+            		    <span ng-show="signin_form.password.$invalid && !signin_form.password.$pristine" class="help-block">{{'REQUIRED' | translate }}</span>
+            			<span ng-show="!signin_form.password.$pristine && !signin_form.c_password.$pristine && vm.password_mismatch" class="help-block">{{'PASSWORD_MISMATCH' | translate }}</span>
+		               </div>
+		            </div>
+		        
+		    </div>
+		</div>        
+		<!-- end bootstrap  grid system -->
+        
         </div>
+        
+        
         <div class="modal-footer">
-            <button class="btn btn-primary" type="button" ng-click="yes(user)">OK</button>
-            <button class="btn btn-warning" type="button" ng-click="no()">Cancel</button>
+                <button type="submit" class="btn btn-primary" ng-disabled="signin_form.$invalid">{{'LET_ME_IN' | translate}}</button>
+        
+            <button class="btn btn-warning" type="button" ng-click="CANCEL()">{{'CANCEL' | translate}}</button>
         </div>
 </FORM>

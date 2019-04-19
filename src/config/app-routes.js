@@ -21,7 +21,7 @@ export default [
       }
     },
     {
-      name:'app.landing', 
+      name:'app.landing',
       url: '/',
       data: {
         auth: true
@@ -54,13 +54,13 @@ export default [
 	      abstract: true,
 	      views: {
 	        'layout': {
-	          templateUrl: './pages/layout/layout.page.html' 
+	          templateUrl: './pages/layout/layout.page.html'
 	        },
 	        'header@app': {
-	          templateUrl: './pages/header/header.page.html' 
+	          templateUrl: './pages/header/header.page.html'
 	        },
 	        'footer@app': {
-	          templateUrl: './pages/footer/footer.page.html' 
+	          templateUrl: './pages/footer/footer.page.html'
 	        },
 	        main: {}
 	      },
@@ -81,6 +81,7 @@ export default [
 	        }
 	      }
 	 }
+
+
+
 ];
-
-
