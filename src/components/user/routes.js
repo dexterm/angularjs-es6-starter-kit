@@ -15,6 +15,6 @@ appRoutes.push(
        template: '<user></user>'
      }
    }
- },
+ }
 
 );

@@ -53,27 +53,38 @@ export default class ProfileController {
 		this.$log = $log;
 		this.userService = userService;
                 this.tmpl = tmpl
-
+		this.API = API
+		var vm = this
 	}
 
-  test = () => {
+//get id from localstorage it is part of oauth token that is returned on login
+  getId = () => {
+		this.$log.info('get userid')
+		let token = this.userService.getToken()
+		if (token)
+			return token.id
+	}
 
-    this.$log.info('Inside test function....@@@@@@@@@@')
 
-  }
+	getProfile = () => {
+		this.$log.info('get profile via http request')
+		let vm = this
+		let id = this.getId()
+		let res = this.API.one('profile').get();
 
-  testing() {
-    this.$log.info('Inside testing function...$$$$$$$$$$$$$$$')
 
-  }
+		res.then( function ( response ) {
+			vm.$log.info('get profile via api call')
+		}, function (err) {
+			vm.$log.debug('failed to get profile', err)
+		})
+
+	}
 
 	$onInit = () => {
 		this.userService.get().then((users) => {
 			this.users = users;
 		});
-
-		this.$log.info('Profile View!!!#####.');
-    this.test()
-    this.testing()
+    this.getProfile()
 	};
 }

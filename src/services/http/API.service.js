@@ -1,10 +1,12 @@
-export class APIService {
-  constructor (Restangular, $window, SiteConfig, userService) {
+/* do not user userService inside this class, it will cause a circular dependency inject and the app will fail */
+/* if you still need to use userService , then user $injector.get('whateveris your service name').yourfunction(); */
+export default class APIService {
+  constructor (Restangular, $window, SiteConfig, localStorageService, $injector, $log, $http) {
     'ngInject'
     // content negotiation
     var headers = {
       'Content-Type': 'application/json',
-      'Accept': 'application/x.laravel.v1+json',
+      'Accept': 'application/json',
     }
 
     return Restangular.withConfig(function (RestangularConfigurer) {
@@ -22,11 +24,15 @@ export class APIService {
         //.addFullRequestInterceptor(function (element, operation, what, url, headers) {
         //for every api request attach the token before making the http request
 
-          var token = userService.getToken()
-          headers = {'Authorization': 'Bearer '}
+          var token = localStorageService.get('token')
+          $log.info('token', token.access_token)
+          //var token = $injector.get('userService').getToken() //uncomment and use if required
           if (token) {
             //if token is available then only concat it
-            headers = {'Authorization': 'Bearer ' +  token.access_token};
+            headers.Authorization = 'Bearer ' +  token.access_token;
+            $http.defaults.headers.common['Authorization'] = 'Bearer ' + token.access_token;
+
+            $log.info('headers', headers)
           }
           return {
                element: element,

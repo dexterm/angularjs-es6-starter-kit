@@ -9,8 +9,7 @@ const coreModule = angular.module('app.core', [
 	'ui.router',
 	'restangular',
 	'pascalprecht.translate',
-	'LocalStorageModule',
-	'app.components'
+	'LocalStorageModule'
 ]);
 
 // inject services, config, filters and re-usable code
