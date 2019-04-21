@@ -1,35 +1,66 @@
+
+
+
+<!-- begin bootstrap 4 nav header -->
+
 <!-- Header section -->
-	<header class="header-section">
-		<a href="./index.html" class="site-logo"><img src="/assets/images/gear.png" alt=""></a>
-		<div class="nav-switch">
-			<i class="fa fa-bars"></i>
-		</div>
-		<div class="nav-warp">
 
-			<span ng-controller="LoginController as vm">
-			<div ng-if="!vm.isAuthenticated()"  class="user-panel">
-				<span ng-click=vm.openLoginModal() >Login</span>
+<!-- bootstrap menu with brand on right side taken from https://www.codeply.com/go/2GyQyizf61
+also check https://stackoverflow.com/questions/19733447/bootstrap-navbar-with-left-center-or-right-aligned-items
+
+check material kit documentation https://demos.creative-tim.com/material-kit/docs/2.1/components/navs.html#0
+-->
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark   static-top nav-background-image">
+	  <div class="collapse navbar-collapse order-last order-lg-first" id="navbarSupportedContent">
+			<ul class="navbar-nav">
+			<li class="nav-item">
+			<a class="nav-link" href="#">Link 1</a>
+			</li>
+			<li class="nav-item">
+			<a class="nav-link" href="#">Link 2</a>
+			</li>
+			<!--
+			<div ng-include="'./components/nav-header/modal-signin-register.html'"></div>
+			<li class="nav-item"><a href="" class="nav-link" data-toggle="modal" data-target="#modalLRForm">Launch
+				Modal LogIn/Register</a></li> -->
+
+			<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" data-toggle="dropdown" id="signin" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+			Account
+			</a>
+			<div class="dropdown-menu" aria-labelledby="signin">
+			<a class="dropdown-item" href="#">Dropdown Link 1</a>
+			<a class="dropdown-item" href="#">Dropdown Link 2</a>
+			<a class="dropdown-item" href="#">Dropdown Link 3</a>
 			</div>
-			</span>
+			</li>
+		</ul>
 
-			<span ng-controller="SignupController as vm" >
-			<div ng-if="!vm.isAuthenticated()" class="user-panel">
-				<span  ng-click=vm.openSignupModal() >Register</span>
-			</div>
-			</span>
+		<ul class="navbar-nav" ng-controller="LoginController as vm">
+		  <li ng-if="!vm.isAuthenticated()"  ng-include="'./components/nav-header/signin-dropdown.html'"> </li>
+			<!-- signup dropdown -->
+		</ul>
+
+		<ul class="navbar-nav" ng-controller="SignupController as vm">
+			<li ng-if="!vm.isAuthenticated()"  ng-include="'./components/nav-header/signup-dropdown.html'"> </li>
+		 </ul>
+
+		<ul class="navbar-nav" ng-controller="LoginController as vm">
+				<li ng-if="vm.isAuthenticated()" class="nav-item " >
+					<a class="nav-link" ng-click="vm.logout()">{{'LOGOUT' | translate}}</a>
+				 </li>
+		 </ul>
+
+	  </div>
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	  </button>
+		<a class="navbar-brand" href="#"><img src="/assets/images/gear.png" alt=""></a>
+	</nav>
 
 
-			<span>
-			<ul class="main-menu">
-				<li><a href="./index.html">Home</a></li>
-				<li><A ui-sref="app.users" ui-sref-opts="{reload:true}">About us</a></li>
-				<li><a href="./service.html">Services</a></li>
-				<li><a href="./blog.html">News</a></li>
-				<li><a href="./contact.html">Contact</a></li>
-			</ul>
-			</span>
-		</div>
-	</header>
+
 	<!-- Header section end -->
-
-   <section class="page-top-section set-bg" ></section>
+	<!-- end bootstrap 4 nav header -->
+<!--   <section class="page-top-section set-bg" ></section> -->

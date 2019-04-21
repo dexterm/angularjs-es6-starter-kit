@@ -23,5 +23,12 @@
   "OK":"Ok",
   "CANCEL":"Cancel",
   "LET_ME_IN":"Let me in!",
-  "SIGNIN_TITLE":"Sign In"
+  "SIGNIN_TITLE":"Sign In",
+  "LOGOUT":"Logout",
+  "FORGOT_PWD":"Forgot Password",
+  "GOOGLE":"Google",
+  "FACEBOOK":"Facebook",
+  "KEEP_ME_SIGNED_IN":"Keep me signed in",
+  "NEW_HERE":"New here",
+  "LOGIN_VIA":"Login via"
 }

@@ -15,5 +15,14 @@ import 'angular-translate';
 import 'satellizer';
 import 'angular-acl';
 import 'angular-translate-loader-static-files';
-import 'angular-ui-bootstrap'
-import 'angular-local-storage'
+import 'angular-ui-bootstrap';
+import 'angular-local-storage';
+/*import 'mdbootstrap';
+import 'mdbootstrap/js/mdb';
+import 'mdbootstrap/js/modules/velocity';
+import 'mdbootstrap/js/modules/waves';
+import 'mdbootstrap/js/modules/wow';
+import 'mdbootstrap/js/modules/forms-free';
+import 'mdbootstrap/js/modules/chart';
+import 'mdbootstrap/js/modules/enhanced-modals';
+import 'mdbootstrap/js/modules/treeview';*/

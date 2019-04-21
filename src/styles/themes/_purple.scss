@@ -30,12 +30,7 @@ $c17:"#210f5a";
 /*----------------------------------------*/
 
 html,
-body {
-	height: 100%;
-	font-family: 'Montserrat', sans-serif;
-	-webkit-font-smoothing: antialiased;
-	font-smoothing: antialiased;
-}
+
 
 h1,
 h2,
@@ -1786,4 +1781,21 @@ ul.dropdown-lr {
 	.dropdown-lr label {
 		color: #eee;
 	}
+}
+
+#primary-nav {
+  //background-color: skyblue;
+}
+
+.nav-background-image {
+  background-image: url("/assets/images/page-top-bg.jpg"); /* The image used */
+  background-color: #430fec; /* Used if the image is unavailable */
+  //height: 225px; /* You must set a specified height */
+  //background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+}
+
+.bg-pg-top {
+	background-color: #271368 !important; /* Used if the image is unavailable */
 }

@@ -12,9 +12,14 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const config = {
 	mode: devMode ? 'development' : 'production',
+	resolve: {
+	    modules: [path.resolve(__dirname, 'src'), 'node_modules']
+	  },
 	entry: {
 		'vendor': './src/vendor.module.js',
-		'app': './src/app.module.js'
+		'app': './src/app.module.js',
+		'mdbcss': './node_modules/mdbootstrap/css/mdb.min.css',
+		'mdbjs': './node_modules/mdbootstrap/js/mdb.min.js'
 	},
 	devtool: devMode ? 'source-map': 'none',
 	output: {
@@ -29,7 +34,7 @@ const config = {
 				loader: ['ng-annotate-loader', 'babel-loader']
 			},
 			{
-				test: /\.(scss)$/,
+				test: /\.(scss|css)$/,
 				use: [
 					devMode ? { loader: "style-loader" } : MiniCssExtractPlugin.loader,
 					{ loader: "css-loader", options: { minimize: true } },
@@ -68,10 +73,11 @@ const config = {
 		new ManifestPlugin(),
 	   new CopyWebpackPlugin(
 		  //[ { from: './src/assets/**/*',  force:true } ],
-		  [ { from: './src/assets', to:'assets', force:true } ],
+		  [ { from: './src/assets', to:'assets', force:true } ,
+		],
 
 		  { copyUnmodified: true }
-		),		
+		),
 		//new HashOutput(),
 		new HtmlWebpackPlugin({ template: './src/index.html' }),
 		new webpack.ProvidePlugin({
@@ -83,8 +89,13 @@ const config = {
 			filename: "styles/[name].[hash].css",
 			chunkFilename: "styles/[id].[hash].css"
         }),
+		new MiniCssExtractPlugin({
+					filename: "mdbootstrap/[name].[hash].css",
+					chunkFilename: "mdbootstrap/[id].[hash].css"
+		}),
+
 		new webpack.HotModuleReplacementPlugin(),
-        
+
 	],
 	devServer: {
 		port: 7000,

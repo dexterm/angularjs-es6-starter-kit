@@ -1,0 +1,55 @@
+<li class="nav-item dropdown">
+<a class="nav-link dropdown-toggle" data-toggle="dropdown" id="login_signup" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+{{'SIGNIN_TITLE' | translate}}
+</a>
+<ul id="login-dp" class="dropdown-menu">
+  <!--dropdown form taken from https://bootsnipp.com/snippets/DV3m4 -->
+      <li>
+         <div class="row">
+            <div class="col-md-12">
+              {{'LOGIN_VIA' | translate}}
+              <div class="social-buttons">
+                <!--<a href="#" class="btn btn-fb"><i class="fa fa-facebook"></i> Facebook</a> -->
+                <a href="#" class="btn btn-tw"><i class="fa fa-google"></i> {{'GOOGLE' | translate}}</a>
+              </div>
+                              (or)
+                <div class="bottom text-center"></div>
+               <form class="form" role="form" ng-submit=submitForm() no-validate id="signin_form" name="signin_form">
+                 <DIV class="form-group row">
+                   <div class="col-md-3 col-xs-3">
+                     <label for="email">{{'EMAIL' | translate }} </label>
+                   </div>
+                   <div class="col-md-8 col-xs-4">
+                       <input type="text" name="email" class="form-control" ng-model="vm.user.email" required >
+                     <span ng-show="signin_form.email.$invalid && !signin_form.email.$pristine" class="help-block">{{'REQUIRED' | translate}}</span>
+                   </div>
+                 </DIV>
+
+                 <div class="form-group row">
+                   <div class="col-md-3 col-xs-3">
+                     <label for="name">{{'PASSWORD' | translate }} </label>
+                   </div>
+                   <div class="col-md-8 col-xs-4">
+                     <input type="password" name="password" class="form-control" ng-model="vm.user.password" required >
+                     <span ng-show="signin_form.password.$invalid && !signin_form.password.$pristine" class="help-block">{{'REQUIRED' | translate }}</span>
+                   <span ng-show="!signin_form.password.$pristine && !signin_form.c_password.$pristine && vm.password_mismatch" class="help-block">{{'PASSWORD_MISMATCH' | translate }}</span>
+                    </div>
+                 </div>
+
+                  <div class="form-group bottom">
+                     <button type="submit" class="btn btn-primary btn-block">{{'SIGNIN_TITLE' | translate}}</button>
+                  </div>
+                  <div class="checkbox">
+                     <label>
+                     <input type="checkbox"> {{'KEEP_ME_SIGNED_IN' | translate}}
+                     </label>
+                  </div>
+               </form>
+            </div>
+            <div class="bottom text-center">
+              {{'NEW_HERE' | translate}} ? <a href="#"><b>{{'SIGN_ME_UP' | translate}}</b></a>
+            </div>
+         </div>
+      </li>
+    </ul>
+</li>
