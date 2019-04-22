@@ -6,14 +6,16 @@ export default class NavHeaderController {
 	constructor(
 		$log,
 		userService,
-		$rootScope
+		$rootScope,
+		SkillService
 	) {
 		'ngInject';
 
 		this.$log = $log;
 		this.userService = userService;
         //this.tmpl = tmpl
-
+		this.skills	= SkillService.getSkills().skills
+		var vm = this
 	}
 
 	$onInit = () => {
@@ -22,5 +24,3 @@ export default class NavHeaderController {
 		this.$log.info('Checking if user is guest or member');
 	};
 }
-
-

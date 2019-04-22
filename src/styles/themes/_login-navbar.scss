@@ -12,9 +12,10 @@
     border-top:1px solid #ddd;
     clear:both;
     padding:14px;
+    width:100%;
 }
 #login-dp .social-buttons{
-    margin:12px 0
+    margin:4px 0
 }
 #login-dp .social-buttons a{
     width: 49%;
@@ -46,6 +47,23 @@ login-dp > .dropdown-menu {
   background:#2e1779;
 
 }
+/*
+.valid-feedback.feedback-icon,
+.invalid-feedback.feedback-icon {
+    position: absolute;
+    width: auto;
+    bottom: 10px;
+    right: 10px;
+    margin-top: 0;
+}*/
+.help-block-error {
+  color:red;
+  font-weight:bold;
+  font-size:12px;
+  padding-top:4px;
+}
+
+
 @media(max-width:768px){
     #login-dp{
         background-color: inherit;
@@ -54,6 +72,7 @@ login-dp > .dropdown-menu {
     #login-dp .bottom{
         background-color: inherit;
         border-top:0 none;
+        width:100%;
     }
 }
 //  <!--dropdown form taken from https://bootsnipp.com/snippets/DV3m4 -->

@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<!-- saved from url=(0078)http://tutorials.jenkov.com/angularjs/timeout-interval.html#injecting-interval -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="480">
+    <meta name="viewport" content="width=device-width, height=device-height initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+    <title>AngularJS $timeout and $interval</title>
+
+    <meta name="description" content="This tutorial explains how the timer services $timeout and $interval works in AngularJS, and how you can use them to schedule function calls.">
+    <meta name="keywords" content="angularjs timeout interval $timeout $interval">
+    <meta name="author" content="Jakob Jenkov">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@jjenkov">
+    <meta name="twitter:title" content="AngularJS $timeout and $interval">
+    <meta name="twitter:description" content="This tutorial explains how the timer services $timeout and $interval works in AngularJS, and how you can use them to schedule function calls.">
+    <meta name="twitter:creator" content="@jjenkov">
+    <meta name="twitter:domain" content="jenkov.com">
+
+    <meta name="twitter:image:src" content="http://tutorials.jenkov.com/images/angularjs/angularjs-teaser-500-300.png">
+
+    <meta name="og:type" content="article">
+    <meta name="og:title" content="AngularJS $timeout and $interval">
+    <meta property="og:url" content="http://tutorials.jenkov.com/angularjs/timeout-interval.html">
+    <meta property="og:description" content="This tutorial explains how the timer services $timeout and $interval works in AngularJS, and how you can use them to schedule function calls.">
+
+    <meta property="og:image" content="http://tutorials.jenkov.com/images/angularjs/angularjs-teaser-500-300.png">
+
+    <link href="https://plus.google.com/108227213807945109821" rel="publisher">
+
+    <meta name="google-site-verification" content="i_TwzdElg-by5uXLvyAjuIaCjxo0yjtW8LdRPUDEEcw">
+<link rel="preload" href="./AngularJS $timeout and $interval_files/f(4).txt" as="script"><script src="./AngularJS $timeout and $interval_files/osd.js"></script><script src="./AngularJS $timeout and $interval_files/cb=gapi.loaded_1" async=""></script><script src="./AngularJS $timeout and $interval_files/cb=gapi(1).loaded_0" async=""></script><script src="./AngularJS $timeout and $interval_files/ca-pub-5569543489255665.js"></script><script type="text/javascript" src="./AngularJS $timeout and $interval_files/f(4).txt"></script><link rel="preload" href="./AngularJS $timeout and $interval_files/f(5).txt" as="script"><script type="text/javascript" src="./AngularJS $timeout and $interval_files/f(5).txt"></script><link rel="preload" href="http://pagead2.googlesyndication.com/pagead/js/r20190417/r20190131/show_ads_impl.js" as="script"><script charset="utf-8" src="./AngularJS $timeout and $interval_files/button.dd024c345fc26f7c7a8d9938b67e5d3d.js"></script></head>
+
+<body>
+<!-- general CSS -->
+<style>
+body {background-color: #f0f0f0;background-image: linear-gradient(180deg, #f0f0f0, #e0e0e0); margin: 0px; font-family: arial;}
+</style>
+
+<style>
+#topBar, #footerBar{ background-color: #000000; height: 64px; box-shadow: 0px 8px 6px -6px #999999; width: 100%;}
+#topBarRow { margin: 0px auto;}
+#topBarRow>div { position: relative;}
+#topBarLogo { position: absolute; right: 0px; top: 7px; }
+#topBarPhrase { position:absolute; right: 4px; top: 45px;}
+#topBarPhrase { color: white; font-size: 0.8em;}
+#topBarMenu { position: absolute; top:23px; left:0px; }
+#topBarMenu a { color: #ffffff; text-decoration: none; display: inline-block; margin-right: 20px; }
+a{text-decoration:none;}
+#footerBar{color: #ffffff; padding-top: 20px; box-sizing: border-box; height: 96px;}
+#footerBarRow{margin: 0px auto;}
+@media only screen and (max-width: 600px) {
+  #topBarLogo{transform: scale(0.75, 0.75) translate(70px, 0px);}
+}
+@media only screen and (max-width: 480px) {
+  #topBarLogo{transform: scale(0.5, 0.5) translate(201px, 0px);}
+  #topBarMenu a{ font-size: 0.8em; }
+}
+</style>
+
+<!-- ad row CSS -->
+<style>
+#topAdsRow{margin: 0px auto;}
+#bottomAdsRow{margin: 0px auto;}
+</style>
+
+<!-- article CSS -->
+<style>
+#main{width: 100%}
+#main h1{margin-top: 0px;}
+#main h2{margin: 24px 0px 0px 0px;}
+#mainRow {margin: 0px auto;}
+#mainBody a{font-weight: bold; color: #339;}
+#mainBody img{max-width:100%;}
+#mainBody svg{max-width:100%;overflow: auto;}
+.card{ background-color: #ffffff; box-shadow: 0px 8px 6px -6px #999999;padding: 20px 30px;border: 1px solid #e0e0e0;}
+#trailToc li{border-bottom: 1px solid #f0f0f0;padding: 6px 20px;vertical-align: top;}
+.codeBox {background-color: #f0f0f0;border: 1px solid #cccccc;padding: 10px;max-width: 100%;overflow: auto;}
+code{font-size: 1.2em;}
+.dataTable{background-color: #f0f0f0;border: 1px solid #cccccc;max-width: 100%;overflow: auto;}
+.dataTable th{text-align: left;}
+.dataTable th, .dataTable td{padding: 2px 8px; }
+#pageToc{border: 1px solid #f0f0f0;}
+#pageToc li{margin: 6px 0px;}
+#pageToc a{color: #339;font-weight: normal;}
+#lastUpdate{border: 1px solid #f0f0f0;border-top:none;padding: 6px 24px;font-size: 0.8em;color: #666;}
+#next{border-top: 1px solid #f0f0f0;padding: 10px 0px;font-size: 1.1em;}
+#bottomSocial{border-top: 1px solid #f0f0f0;padding: 10px 0px;font-size: 0.9em;}
+</style>
+
+<!-- Nav bar CSS -->
+<style>
+.navButton{color: #ffffff; font-weight: bold;}
+#trailTocFixedDiv{position: fixed;  top : 0px; left : 0px; width : 100%; height : 100%;  display : none; background-color: #ffffff;}
+#trailTocFixedInnerDiv{width: 400px; max-width: 94%; height: calc(100% - 72px); overflow : auto; margin : 20px auto 20px auto; padding : 0px 0px 80px 0px;}
+#trailTocFixedInnerDiv th{border-bottom: 1px solid #f0f0f0;padding: 6px 10px;text-align: left;font-size: 1.2em;}
+#trailTocFixedInnerDiv td{border-bottom: 1px solid #f0f0f0;padding: 6px 20px;vertical-align: top;}
+#trailTocFixedCloseButton{width : 72px; padding: 10px 20px; background-color: #009900; border: 2px solid #006600; color: #ffffff; font-size: 0.8em; font-weight: bold; position: absolute; right: 0px; cursor: pointer; box-shadow: 2px 2px 2px 2px #cccccc;}
+#bottomNavBarDiv{position:fixed; bottom: 0px; width: 100%;  background-color: #202020; border-top: 1px solid #444444;}
+.buttonNavBarButtonDivActive{background-color: #404040;}
+#bottomNavBarRow>div{border-left: 1px solid #404040; border-right: 1px solid #000000;  height: 48px;  padding-top:16px; text-align: center; cursor: pointer;}
+#bottomNavBarDiv a{color: #ffffff; font-weight: bold;}
+#bottomNavBarDiv br{display:none;}
+#bottomNavBarDiv img{ height: 20px; }
+#nextButton2{ display:none; }
+@media only screen and (max-width: 700px){
+  #bottomNavBarDiv, #bottomNavBarDiv [jqc-cell] { height: 58px; }
+  #bottomNavBarDiv [jqc-cell] {padding-top: 12px;}
+  #bottomNavBarDiv a { font-size: 0.8em; }
+  #bottomNavBarDiv br { display: inline; }
+  #nextButton1 { display: none; }
+  #nextButton2 { display: inline; }
+}
+@media only screen and (max-width: 400px){
+  #bottomNavBarDiv [jqc-cell] {padding-top: 10px;}
+  #bottomNavBarDiv a {font-size: 0.5em;}
+  #bottomNavBarDiv img {height: 24px;}
+}
+</style>
+
+
+<script async="" src="./AngularJS $timeout and $interval_files/analytics.js"></script><script id="twitter-wjs" src="./AngularJS $timeout and $interval_files/widgets.js"></script><script type="text/javascript" async="" src="./AngularJS $timeout and $interval_files/platform.js" gapi_processed="true"></script><script>
+//articleLen = 7104;
+articleLen = 10000;
+adRandom = Math.random() * 100;
+
+function dw(text) { document.write(text); }
+
+function writeAd(adSlot, w, h) {
+ dw("<script async src='//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'><"); dw("/script>");
+ dw("<ins class='adsbygoogle' style='display:inline-block;width:" + w + "px;height:" + h + "px' data-ad-client='ca-pub-5569543489255665' data-ad-slot='" +  adSlot + "'></ins>");
+ dw("<script>");
+ dw("(adsbygoogle = window.adsbygoogle || []).push({});");
+ dw("<"); dw("/script>");
+}
+
+function adStyles(elId, w, mT, mB) {
+    var adEl = document.getElementById(elId);
+    adEl.style.width = (w + "px"); adEl.style.marginTop = (mT + "px"); adEl.style.marginBottom = (mB + "px"); adEl.style.marginRight = "auto"; adEl.style.marginLeft = "auto";
+}
+
+</script>
+
+<div id="topBar">
+    <div id="topBarRow" style="width: 1200px;"><div style="display: inline-block; box-sizing: border-box; vertical-align: top; width: 560px; margin-left: 24px;"><div id="topBarMenu">
+            <a href="http://tutorials.jenkov.com/">Tutorials</a>
+            <a href="http://jenkov.com/about/index.html">About</a>
+            <a href="http://jenkov.com/rss.xml">RSS</a>
+        </div>
+        </div><div style="display: inline-block; box-sizing: border-box; vertical-align: top; width: 560px; margin-left: 32px;">
+            <div id="topBarLogo"><svg x="0px" y="0px" width="409px" height="48px" viewBox="0 0 409 100" style="enable-background:new 0 0 409 100;" xml:space="preserve">  <path d="M53,32 l10,0  l0,26  c-7,21 -30,21 -53,10  l4,-9  c18,11 33,10 39,-3  z " style="stroke: none; stroke-width: 1; fill: #ffffff;"></path>  <path d="M69,32 l50,0  l0,9  l-50,0 z" style="stroke: none; stroke-width: 1; fill: #ffffff;"></path>  <path d="M69,49 l50,0  l0,9  l-50,0 z" style="stroke: none; stroke-width: 1; fill: #ffffff;"></path>  <path d="M69,65 l50,0  l0,9  l-50,0 z" style="stroke: none; stroke-width: 1; fill: #ffffff;"></path>  <path d="M126,32 l13,0  l40,31  l0,-31  l10,0  l0,42  l-10,0 l-43,-32 l0,32 l-10,0 z " style="stroke: none; stroke-width: 1; fill: #ffffff;"></path>  <path d="M179,32  l10,0  l0,15 l5,0  l32.5,-14.5  l19,0  l-41,19  l40,22  l-19,0  l-33,-18  l-3.5,0  l0,19  l-10,0 z " style="stroke: none; stroke-width: 1; fill: #ffffff;"></path>  <path d="M238,49  c10,-24 60,-24 70,0  l-11,0  c-10,-12 -38,-12 -48,0  z " style="stroke: none; stroke-width: 1; fill: #ffffff;"></path>  <path d="M238,57  c10,24 60,24 70,0  l-11,0  c-10,12 -38,12 -48,0  z " style="stroke: none; stroke-width: 1; fill: #ffffff;"></path>  <path d="M304,32  l13,0  l25,34 l25,-34  l13,0  l-32,42 l-12.5,0 z" style="stroke: none; stroke-width: 1; fill: #ffffff;"></path>  <path d="M369,65  l12,0 l0,8 l-12,0 z" style="stroke: none; stroke-width: 1; fill: #ffffff;"></path>  <path d="M390,53  c3,-27 54,-27 67,-10  l-15,0  c-10,-5 -40,-5 -41.5,10 l-10,0  " style="stroke: none;  stroke-width: 1; fill: #ffffff;"></path>  <path d="M390,53  c3,27 54,27 67,10  l-15,0  c-10,5 -40,5 -41.5,-10 l-10,0  " style="stroke: none;  stroke-width: 1; fill: #ffffff;"></path>  <path d="M460,49  c10,-24 60,-24 70,0  l-11,0  c-10,-12 -38,-12 -48,0  z " style="stroke: none; stroke-width: 1; fill: #ffffff;"></path>  <path d="M460,57  c10,24 60,24 70,0  l-11,0  c-10,12 -38,12 -48,0  z " style="stroke: none; stroke-width: 1; fill: #ffffff;"></path>  <path d="M534,34  l10,0  l0,6 c13,-10 26,-10 37,0  c12,-10 32,-10 39,3  l0,30  l-10,0  l0,-27  c-3,-9 -24,-9 -28,3 l0,24  -10,0  l0,-27  c-3,-9 -24,-9 -28,3 l0,24  -10,0 z" style="stroke: none; stroke-width: 1; fill: #ffffff;"></path></svg></div>
+            <div id="topBarPhrase">Tech and Media Labs</div>
+        </div></div>
+</div>
+
+
+
+<div id="cookieNote">
+    <div id="cookieNoteRow">
+        <div>
+            <div class="card">
+                This site uses cookies to improve the user experience. <button onclick="hideCookieNote()">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+ls = localStorage;
+function hideCookieNote() { document.getElementById("cookieNote").innerHTML = ""; ls.cookieNote = 0; }
+
+if(ls.cookieNote == 0) {
+    hideCookieNote();
+}
+</script>
+
+<div>
+    <div id="topAdsRow" style="width: 1200px;"><div style="display: inline-block; box-sizing: border-box; vertical-align: top; width: 1152px; margin-left: 24px;">
+            <div id="topAds" style="width: 728px; margin: 20px auto;">
+                <script>
+if(window.innerWidth > 970) {
+    if(adRandom <= 5){
+        writeAd("6094206201", 970, 90); /* wider ad - 5% of page views */
+        adStyles("topAds", 970, 20, 20);
+    } else {
+        writeAd("7630855405", 728, 90); /* standard ad */
+        adStyles("topAds", 728, 20, 20);
+    }
+} else if(window.innerWidth >= 728 && window.innerWidth <= 970)  {  /* Tutorials - Top Banner */
+    writeAd("7630855405", 728, 90);
+    adStyles("topAds", 728, 20, 20);
+} else {  /* Tutorials - Top Banner - Mobile */
+    writeAd("3297914607", 320, 50);
+    adStyles("topAds", 320, 10, 0);
+}
+</script><script async="" src="./AngularJS $timeout and $interval_files/f(6).txt"></script><ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-5569543489255665" data-ad-slot="7630855405" data-adsbygoogle-status="done"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent;"><ins id="aswift_0_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent;"><iframe width="728" height="90" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;border:0px;width:728px;height:90px;" src="./AngularJS $timeout and $interval_files/saved_resource(3).html"></iframe></ins></ins></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+        </div></div>
+</div>
+
+<div id="main">
+    <div id="mainRow" style="width: 1200px;"><div style="display: inline-block; box-sizing: border-box; vertical-align: top; width: 330px; margin-left: 24px;">
+            <div id="trailToc" class="card">
+                <div id="trailTitle">AngularJS</div><ol><li><a href="http://tutorials.jenkov.com/angularjs/index.html">AngularJS Tutorial</a></li><li><a href="http://tutorials.jenkov.com/angularjs/views-and-directives.html">AngularJS Views And Directives</a></li><li><a href="http://tutorials.jenkov.com/angularjs/scope-hierarchy.html">AngularJS $scope Hierarchy</a></li><li><a href="http://tutorials.jenkov.com/angularjs/events.html">AngularJS Events</a></li><li><a href="http://tutorials.jenkov.com/angularjs/watch-digest-apply.html">AngularJS $watch() , $digest() and $apply()</a></li><li><a href="http://tutorials.jenkov.com/angularjs/ajax.html">AngularJS AJAX</a></li><li><a href="http://tutorials.jenkov.com/angularjs/forms.html">AngularJS Forms</a></li><li><a href="http://tutorials.jenkov.com/angularjs/timeout-interval.html"><b>AngularJS $timeout and $interval</b></a></li><li><a href="http://tutorials.jenkov.com/angularjs/custom-directives.html">AngularJS Custom Directives</a></li><li><a href="http://tutorials.jenkov.com/angularjs/dependency-injection.html">AngularJS Modularization &amp; Dependency Injection</a></li><li><a href="http://tutorials.jenkov.com/angularjs/routes.html">AngularJS Routes</a></li><li><a href="http://tutorials.jenkov.com/angularjs/internationalization.html">AngularJS Internationalization</a></li><li><a href="http://tutorials.jenkov.com/angularjs/critique.html">AngularJS Critique</a></li></ol>
+            </div>
+
+            <br><br>
+            <!-- Left Bar Adsense Banner Ad -->
+            <div id="side-ads">
+                <script>
+        if(window.innerWidth >= 900){
+            if     (adRandom <  94){ writeAd("3389666608", 160,  600); }
+            else if(adRandom < 97) { writeAd("5873880207", 300,  600); }
+            else                   { writeAd("4257546205", 300, 1050);}
+        }
+        </script><script async="" src="./AngularJS $timeout and $interval_files/f(6).txt"></script><ins class="adsbygoogle" style="display:inline-block;width:160px;height:600px" data-ad-client="ca-pub-5569543489255665" data-ad-slot="3389666608" data-adsbygoogle-status="done"><ins id="aswift_1_expand" style="display:inline-table;border:none;height:600px;margin:0;padding:0;position:relative;visibility:visible;width:160px;background-color:transparent;"><ins id="aswift_1_anchor" style="display:block;border:none;height:600px;margin:0;padding:0;position:relative;visibility:visible;width:160px;background-color:transparent;"><iframe width="160" height="600" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;border:0px;width:160px;height:600px;" src="./AngularJS $timeout and $interval_files/saved_resource(4).html"></iframe></ins></ins></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+
+        </div><div style="display: inline-block; box-sizing: border-box; vertical-align: top; width: 814px; margin-left: 8px;">
+            <div class="card">
+                <h1>AngularJS $timeout and $interval</h1>
+
+                <div id="pageToc" itemscope="" itemtype="http://schema.org/SiteNavigationElement">
+                    <ul><li><a href="http://tutorials.jenkov.com/angularjs/timeout-interval.html#timeout">$timeout</a><ul><li><a href="http://tutorials.jenkov.com/angularjs/timeout-interval.html#injecting-timeout">Injecting $timeout</a></li><li><a href="http://tutorials.jenkov.com/angularjs/timeout-interval.html#scheduling-a-function-call">Scheduling a Function Call</a></li></ul></li><li><a href="http://tutorials.jenkov.com/angularjs/timeout-interval.html#interval">$interval</a><ul><li><a href="http://tutorials.jenkov.com/angularjs/timeout-interval.html#injecting-interval">Injecting $interval</a></li><li><a href="http://tutorials.jenkov.com/angularjs/timeout-interval.html#scheduling-a-repeated-function-call">Scheduling a Repeated Function Call</a></li></ul></li><li><a href="http://tutorials.jenkov.com/angularjs/timeout-interval.html#executing-digest-after-the-scheduled-function-call">Executing $digest() After the Scheduled Function Call</a></li></ul>
+                </div>
+                <div id="lastUpdate">
+                    <table><tbody><tr><td class="authorPhoto"></td>
+                        <td><p style="margin: 0px 0px 6px 0px;">
+                            Jakob Jenkov<br>
+                            Last update: 2014-11-19
+                        </p>
+                            <div class="authorSocialLinks"><a class="iconLink" href="https://twitter.com/#!/jjenkov" title="Follow on Twitter" target="_blank"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABpElEQVRIx2NgwAOUlZWVFBUVqxQUFPYC8XMg/gvFIPZekBxIDQOpQAkIgAashhr2nwAGqVkN0kOU4UBXxQA1fCbCYHT8GaSXkOFlZBiMgkFm4HM5RYYjWYLqE2iYkxMsOIMLJU6gEUqqIaCUdB1PQlgNT4rYFAG9uRVXqgHKpejp6TFBfa8BFJsPpEHx9xtZHTgJQ9M5hkEqKipyQLkkIPs7mtxM9PizsLBgAloQBZR7jObIKgZoJsKwAKjBCOpCNSB/KcwioKYIbIkEKLceizl7GaBhiS0lLNXS0mKCGaCmpsYDtMwO6G05HBZgSyTPGXBFEtAgI3V1dS5iMqeqqqoIrvjCaQEQzyW2aAH6NgSfBc9xSILioQIYTByELACq3Y4rKeOMZGg81BEyHOgIFzx5ZS/OZIqEF4LiA4fhckD5p3gcWIUro4GS5FsgPg5UVASMRC4shpsA5R/iK8bhdQWWogJkwUSgIXrIhurr64MylBkoAaDlWtxFBRGF3Xsgvgwtd4gtED9jVEA0La6RLKFdhYPmE9pUmWhxQptKHxlQo9kCAHsFA8aGHksTAAAAAElFTkSuQmCC"></a> <a class="iconLink" href="http://www.linkedin.com/pub/jakob-jenkov/0/a8/4a3" title="Connect on LinkedIn" target="_blank"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABEklEQVRIx2NgwAOUlZWVFBUVqxQUFPYC8XMg/gvFIPZekBxIDQOpQAkIgAashhr2nwAGqVkN0kOU4UBXxQA1fCbCYHT8GaSXkOFlZBiMgkFm4HM5RYYjWYLqE2iYkxMsOIMLJU6gEYpL8XcoJtWS1fCkiCe1fAfKy4AwGZb8BSdhaDr/TwMLQHFRxQDNRP9pEEQgvJcBmitxKkKKp/9IKa5bTU2NT0VFRQoovh+P/ucMhHIrNguABosAg00MmgJ18MUDWRYA2beB+D6IbW1tzUTIApKDCCbX0tLChMzHFUR7aWjBXkLJlCILwMmUQEajBP+F1xUEigpy8Wr6FXY0L67pUuHQpcpEixPaVPrIgBrNFgAzO0iIN1MJVQAAAABJRU5ErkJggg=="></a> <a class="iconLink" href="https://www.youtube.com/user/jjenkov" title="Subscribe on YouTube" target="_blank"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABNElEQVRIx7VWSwrCMBANxYW48gTS2kJFaBfiHdq1uxbP4cJNz+K6eIQeR3oAlyI6T0Zpwlj7MYEHJZN5k8zMS6pUy/B9f+l53tF13YpQE+4MfFewYY3qO5Y0iKBksscPYE0Jn07ktKs9OVw7EJu4wvcX+WEAsQZwtO18FHkjiH4SzvmQtHxNl1YTLui/yN8oP60odMuFjrkLgmARhuE8juNpkiSToigcAN+Ygw1rsBY+Zne9Wpj73Mxh3re14SPwHBWLSDNgV4Lo3LYA8BHSVClWpWaIomhmEtD8jXCi2q2lAPARAtRKUmue544QoKncMwXaNu1ZljmSyscE2HQN0DdFq74psltk623aVWhpmg4TGufX3lWBYf2y4xzau64bQew9OMZJ7DyZRk3sPPqGuEb/tjwB4iHvG88CuqcAAAAASUVORK5CYII="></a> <a class="iconLink" href="http://jenkov.com/rss.xml" title="Subscribe to RSS Feed" target="_blank"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABqUlEQVRIx71WwUrDQBANEqQnP6AUSZo0JDnkByLSU/HkB0g/o0jJVUrx5MGvkHxDzuKxZ/HgoeQsOXiQom9kVjbJZhON7cKDbDI7M/vezG4MQzMcxxnbtp1YlpUBObBj0HNG38jG+O0YY8BBys4+W0A2Ka3p5BxZzbGg6OC4ioLWtjm//oPjEsiHLvNezqUg5Z0w5zVa4jg2XdcdYsEM81vgtStdJU1Y0JphdZdBEJgIdtUxUPpTippquYfDJZKZknMRCLs6wbeHtur6LmGu8y7bzmG78DzvWNLtrkWLxOAmUhog01PKHs8rYMvvNzK/LTvJDO5KpYHM/2QyGSCjNdO5FUGYriZNckPXrcQ/VZDv+6ZEy5zXbARdLLxSB20ACc9wciYFWXMCC5qHYXjUsIudliLgA3gC3oB3EYToYk1yUV3cJ0qKGkUGzZdcyiMO8iLoQrAbtpnyfKYUWVemURQNpGp5ZFouuPvPhU4s9lBZprpGg8GKgtBOmC56n7DDkWhGmtOxomw03VHRE2nrYdcDRe0C2utxfZAL5yBXZkWT/Vz68viP35Yv1q4mS+AFuV8AAAAASUVORK5CYII="></a> </div>
+                        </td>
+                    </tr>
+                    </tbody></table>
+                </div>
+
+                <div id="mainBody">
+                    <p>
+    AngularJS has two timer services, <code>$timeout</code> and <code>$interval</code>, which you can use to call
+    functions in your application. The <code>$timeout</code> and <code>$interval</code> services are similar in their
+    functionality to JavaScript's <code>setTimeout()</code> and <code>setInterval()</code> functions (actually belonging
+    to the <code>window</code> object). The functionality of these services is also similar, so I will cover both in
+    this text.
+</p>
+
+
+
+<a name="timeout"></a>
+<h2>$timeout</h2>
+
+<p>
+    The <code>$timeout</code> service can be used to call another JavaScript function after a given time delay.
+    The <code>$timeout</code> service only schedules a single call to the function. For repeated calling of a function,
+    see <code>$interval</code> later in this text.
+</p>
+
+
+<a name="injecting-timeout"></a>
+<h3>Injecting $timeout</h3>
+
+<p>
+    To use the <code>$timeout</code> service you must first get it injected into a controller function. Here is an example
+    that injects the <code>$timeout</code> service into a controller function:
+</p>
+
+<pre class="codeBox">var myapp = angular.module("myapp", []);
+
+myapp.controller("MyController", function($scope, <b>$timeout</b>){
+
+});
+</pre>
+
+<p>
+    Notice the <code>$timeout</code> parameter of the controller function. Into this parameter the <code>$timeout</code>
+    service will be injected by AngularJS, just like any other AngularJS service you would want to use in your controller
+    function.
+</p>
+
+
+
+<a name="scheduling-a-function-call"></a>
+<h3>Scheduling a Function Call</h3>
+
+<p>
+    Once the <code>$timeout</code> service is injected into your controller function, you can use it to schedule
+    function calls. Here is an example that used the <code>$timeout</code> service to schedule a function call 3 seconds
+    later:
+</p>
+
+<pre class="codeBox">var myapp = angular.module("myapp", []);
+
+myapp.controller("MyController", function($scope, $timeout){
+
+    $timeout(callAtTimeout, 3000);
+
+});
+
+function callAtTimeout() {
+    console.log("Timeout occurred");
+}
+</pre>
+
+<p>
+    This example schedules a function call to <code>callAtTimeout()</code> after 3 seconds (3000 milliseconds).
+</p>
+
+<p>
+    If you want to call a function on the <code>$scope</code> object, you can do so like this:
+</p>
+
+
+<pre class="codeBox">var myapp = angular.module("myapp", []);
+
+myapp.controller("DIController", function($scope, $timeout){
+
+    $scope.callAtTimeout = function() {
+        console.log("$scope.callAtTimeout - Timeout occurred");
+    }
+
+    $timeout( <b>function(){ $scope.callAtTimeout(); }</b>, 3000);
+});
+</pre>
+
+<p>
+    Notice the function passed to the <code>$timeout</code> service. This function calls the <code>callAtTimeout()</code>
+    function on the <code>$scope</code> object.
+</p>
+
+
+
+
+<a name="interval"></a>
+<h2>$interval</h2>
+
+<p>
+    The <code>$interval</code> service is similar in function to the <code>$timeout</code> service, except it schedules
+    a function for repeated execution with a time interval in between.
+</p>
+
+
+
+<a name="injecting-interval"></a>
+<h3>Injecting $interval</h3>
+
+<p>
+    To use the <code>$interval</code> service you must have it injected into a controller function. Here is an example
+    that injects the <code>$interval</code> service into a controller function:
+</p>
+
+<pre class="codeBox">var myapp = angular.module("myapp", []);
+
+myapp.controller("MyController", function($scope, <b>$interval</b>){
+
+});
+</pre>
+
+<p>
+    As you can see, it is very similar to how you inject any other service in AngularJS.
+</p>
+
+
+
+
+<a name="scheduling-a-repeated-function-call"></a>
+<h3>Scheduling a Repeated Function Call</h3>
+
+<p>
+    Once the <code>$interval</code> service is injected into your controller function, you can use it to schedule
+    repeated function calls. Here is an example that used the <code>$interval</code> service to schedule a function call
+    every 5 seconds:
+</p>
+
+<pre class="codeBox">var myapp = angular.module("myapp", []);
+
+myapp.controller("MyController", function($scope, $interval){
+
+  var timer =   $interval(callAtInterval, 5000); //inifinite call
+   //$interval returns a promise
+  //to cancel the timer
+  $interval.cancel(timer);
+});
+
+function callAtInterval() {
+    console.log("Interval occurred");
+}
+</pre>
+
+<p>
+    This example schedules a function call to <code>callAtInterval()</code> every 5 seconds (5000 milliseconds).
+</p>
+
+<p>
+    If you want to call a function on the <code>$scope</code> object instead, you can do so like this:
+</p>
+
+
+<pre class="codeBox">var myapp = angular.module("myapp", []);
+
+myapp.controller("DIController", function($scope, $interval){
+
+    $scope.callAtInterval = function() {
+        console.log("$scope.callAtInterval - Interval occurred");
+    }
+
+    $interval( <b>function(){ $scope.callAtInterval(); }</b>, 3000);
+});
+</pre>
+
+<p>
+    The function passed to the <code>$interval</code> service calls the <code>callAtInterval()</code>
+    function on the <code>$scope</code> object.
+</p>
+
+
+
+
+
+<a name="executing-digest-after-the-scheduled-function-call"></a>
+<h2>Executing $digest() After the Scheduled Function Call</h2>
+
+<p>
+    If the function you schedule for execution makes changes to variables in the <code>$scope</code> object, or
+    make changes to any other variable which your application is watching, your application needs to execute
+    <code>$scope.$digest()</code> after the scheduled function call finishes. Why that is necessary is explained
+    in my tutorial about <a href="http://tutorials.jenkov.com/angularjs/watch-digest-apply.html">$watch(), $digest() and $apply()</a>.
+</p>
+
+<p>
+    By default AngularJS already calls <code>$digest()</code> after the scheduled function call finishes, so you don't
+    have to do that explicitly. You can, however, specify if AngularJS should <i>not</i> call <code>$digest()</code>
+    after the scheduled function call. If, for instance, your scheduled function call only updates an animation but
+    does not change any <code>$scope</code> variables, then it is a waste of CPU time to call <code>$digest()</code>
+    after the function finishes.
+</p>
+
+<p>
+    Both <code>$timeout</code> and <code>$interval</code> have a third, optional parameter which can specify if the
+    <code>$digest()</code> method is to be executed after the scheduled function finishes. Actually, the third parameter
+    specifies if the call to the scheduled function should be done inside an <code>$apply()</code> call.
+    Here is an example of how to use this third parameter:
+</p>
+
+
+<pre class="codeBox">$interval( function(){ $scope.callAtInterval(); }, 3000, true);
+
+$interval( function(){ $scope.callAtInterval(); }, 3000, false);
+</pre>
+
+<p>
+    These two <code>$interval</code> examples both have a third parameter passed to the <code>$interval</code> service.
+    This parameter can be either <code>true</code> or <code>false</code>. A value of <code>true</code> means that
+    the scheduled function should be called inside an <code>$apply()</code> call. A value of <code>false</code>
+    means that it should not be called inside an <code>$apply()</code> call (meaning <code>$digest()</code> will not
+    get called after the scheduled function finishes).
+</p>
+                </div>
+
+                <div id="next">Next: <a href="http://tutorials.jenkov.com/angularjs/custom-directives.html">AngularJS Custom Directives</a></div>
+                <div id="bottomSocial">
+
+                    <div style="display:inline-block;">
+                        <table>
+                            <tbody><tr><td colspan="2">
+                                <div id="___plus_0" style="position: absolute; width: 450px; left: -10000px;"><iframe ng-non-bindable="" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position:absolute;top:-10000px;width:450px;margin:0px;border-style:none" tabindex="0" vspace="0" width="100%" id="I0_1555928933344" name="I0_1555928933344" src="./AngularJS $timeout and $interval_files/sharebutton.html" data-gapiattached="true"></iframe></div><div class="g-plus" data-action="share" data-height="24" data-annotation="none" data-gapiscan="true" data-onload="true" data-gapistub="true"></div>
+                                <script type="text/javascript">
+                            (function() {
+                                var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                                po.src = 'https://apis.google.com/js/platform.js';
+                                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+                             })();
+                        </script>
+
+                                <iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-share-button-rendered twitter-tweet-button" style="position: static; visibility: visible; width: 60px; height: 20px;" title="Twitter Tweet Button" src="./AngularJS $timeout and $interval_files/tweet_button.2e9f365dae390394eb8d923cba8c5b11.en.html"></iframe>
+                                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+                            </td></tr>
+                            <tr><td class="authorPhoto"></td><td><p style="margin: 0px 0px 6px 0px;">Jakob Jenkov</p><div class="authorSocialLinks"><a class="iconLink" href="https://twitter.com/#!/jjenkov" title="Follow on Twitter" target="_blank"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABpElEQVRIx2NgwAOUlZWVFBUVqxQUFPYC8XMg/gvFIPZekBxIDQOpQAkIgAashhr2nwAGqVkN0kOU4UBXxQA1fCbCYHT8GaSXkOFlZBiMgkFm4HM5RYYjWYLqE2iYkxMsOIMLJU6gEUqqIaCUdB1PQlgNT4rYFAG9uRVXqgHKpejp6TFBfa8BFJsPpEHx9xtZHTgJQ9M5hkEqKipyQLkkIPs7mtxM9PizsLBgAloQBZR7jObIKgZoJsKwAKjBCOpCNSB/KcwioKYIbIkEKLceizl7GaBhiS0lLNXS0mKCGaCmpsYDtMwO6G05HBZgSyTPGXBFEtAgI3V1dS5iMqeqqqoIrvjCaQEQzyW2aAH6NgSfBc9xSILioQIYTByELACq3Y4rKeOMZGg81BEyHOgIFzx5ZS/OZIqEF4LiA4fhckD5p3gcWIUro4GS5FsgPg5UVASMRC4shpsA5R/iK8bhdQWWogJkwUSgIXrIhurr64MylBkoAaDlWtxFBRGF3Xsgvgwtd4gtED9jVEA0La6RLKFdhYPmE9pUmWhxQptKHxlQo9kCAHsFA8aGHksTAAAAAElFTkSuQmCC"></a> <a class="iconLink" href="http://www.linkedin.com/pub/jakob-jenkov/0/a8/4a3" title="Connect on LinkedIn" target="_blank"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABEklEQVRIx2NgwAOUlZWVFBUVqxQUFPYC8XMg/gvFIPZekBxIDQOpQAkIgAashhr2nwAGqVkN0kOU4UBXxQA1fCbCYHT8GaSXkOFlZBiMgkFm4HM5RYYjWYLqE2iYkxMsOIMLJU6gEYpL8XcoJtWS1fCkiCe1fAfKy4AwGZb8BSdhaDr/TwMLQHFRxQDNRP9pEEQgvJcBmitxKkKKp/9IKa5bTU2NT0VFRQoovh+P/ucMhHIrNguABosAg00MmgJ18MUDWRYA2beB+D6IbW1tzUTIApKDCCbX0tLChMzHFUR7aWjBXkLJlCILwMmUQEajBP+F1xUEigpy8Wr6FXY0L67pUuHQpcpEixPaVPrIgBrNFgAzO0iIN1MJVQAAAABJRU5ErkJggg=="></a> <a class="iconLink" href="https://www.youtube.com/user/jjenkov" title="Subscribe on YouTube" target="_blank"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABNElEQVRIx7VWSwrCMBANxYW48gTS2kJFaBfiHdq1uxbP4cJNz+K6eIQeR3oAlyI6T0Zpwlj7MYEHJZN5k8zMS6pUy/B9f+l53tF13YpQE+4MfFewYY3qO5Y0iKBksscPYE0Jn07ktKs9OVw7EJu4wvcX+WEAsQZwtO18FHkjiH4SzvmQtHxNl1YTLui/yN8oP60odMuFjrkLgmARhuE8juNpkiSToigcAN+Ygw1rsBY+Zne9Wpj73Mxh3re14SPwHBWLSDNgV4Lo3LYA8BHSVClWpWaIomhmEtD8jXCi2q2lAPARAtRKUmue544QoKncMwXaNu1ZljmSyscE2HQN0DdFq74psltk623aVWhpmg4TGufX3lWBYf2y4xzau64bQew9OMZJ7DyZRk3sPPqGuEb/tjwB4iHvG88CuqcAAAAASUVORK5CYII="></a> <a class="iconLink" href="http://jenkov.com/rss.xml" title="Subscribe to RSS Feed" target="_blank"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABqUlEQVRIx71WwUrDQBANEqQnP6AUSZo0JDnkByLSU/HkB0g/o0jJVUrx5MGvkHxDzuKxZ/HgoeQsOXiQom9kVjbJZhON7cKDbDI7M/vezG4MQzMcxxnbtp1YlpUBObBj0HNG38jG+O0YY8BBys4+W0A2Ka3p5BxZzbGg6OC4ioLWtjm//oPjEsiHLvNezqUg5Z0w5zVa4jg2XdcdYsEM81vgtStdJU1Y0JphdZdBEJgIdtUxUPpTippquYfDJZKZknMRCLs6wbeHtur6LmGu8y7bzmG78DzvWNLtrkWLxOAmUhog01PKHs8rYMvvNzK/LTvJDO5KpYHM/2QyGSCjNdO5FUGYriZNckPXrcQ/VZDv+6ZEy5zXbARdLLxSB20ACc9wciYFWXMCC5qHYXjUsIudliLgA3gC3oB3EYToYk1yUV3cJ0qKGkUGzZdcyiMO8iLoQrAbtpnyfKYUWVemURQNpGp5ZFouuPvPhU4s9lBZprpGg8GKgtBOmC56n7DDkWhGmtOxomw03VHRE2nrYdcDRe0C2utxfZAL5yBXZkWT/Vz68viP35Yv1q4mS+AFuV8AAAAASUVORK5CYII="></a> </div></td></tr>
+                        </tbody></table>
+                    </div>
+
+                    <div style="display: none;" class="newsletterForm"></div>
+
+                </div>
+            </div>
+        </div></div>
+</div>
+
+<!-- Bottom ads -->
+<div>
+    <div id="bottomAdsRow" style="width: 1200px;"><div style="display: inline-block; box-sizing: border-box; vertical-align: top; width: 1152px; margin-left: 24px;">
+            <div id="bottomAds" style="width: 728px; margin: 20px auto;">
+                <script>
+if(articleLen >= 4000){ /* for longer articles place ads here, at the bottom of the page */
+    if(window.innerWidth >= 728 ) {  /* Adsense Ads - Bottom Banner */
+        if(adRandom < 5)       { writeAd("2721937400", 970, 90);  adStyles("bottomAds", 970, 20, 20);}
+        else if(adRandom < 30) { writeAd("9547200207", 970, 250); adStyles("bottomAds", 970, 20, 20);}
+        else                   { writeAd("7776167002", 728, 90);  adStyles("bottomAds", 728, 20, 20);}
+    } else if(window.innerWidth < 728) {  /* Adsense Ads - Bottom Banner - Mobile */
+        if(adRandom < 50) {
+            writeAd("4216244607", 320, 50); adStyles("bottomAds", 320, 10, 0);
+        } else {
+            writeAd("7377085404", 320, 100); adStyles("bottomAds", 320, 10, 0);
+        }
+    }
+}
+</script><script async="" src="./AngularJS $timeout and $interval_files/f(6).txt"></script><ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-5569543489255665" data-ad-slot="7776167002" data-adsbygoogle-status="done"><ins id="aswift_2_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent;"><ins id="aswift_2_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent;"><iframe width="728" height="90" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_2" name="aswift_2" style="left:0;position:absolute;top:0;border:0px;width:728px;height:90px;" src="./AngularJS $timeout and $interval_files/saved_resource(5).html"></iframe></ins></ins></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+                <br><br><br>
+            </div>
+            <div style="height: 30px"></div>
+        </div></div>
+</div>
+
+<div id="footerBar">
+    <div id="footerBarRow" style="width: 1200px;"><div style="display: inline-block; box-sizing: border-box; vertical-align: top; width: 1152px; margin-left: 24px;">
+            Copyright &nbsp;Jenkov Aps
+        </div></div>
+</div>
+
+<div id="trailTocFixedDiv">
+    <div id="trailTocFixedCloseButton">Close TOC</div>
+    <div id="trailTocFixedInnerDiv"></div>
+</div>
+
+<div id="bottomNavBar">
+    <nav>
+        <div id="bottomNavBarDiv">
+            <div id="bottomNavBarRow" style="width: 1200px;"><div style="display: inline-block; box-sizing: border-box; vertical-align: top; width: 165px; margin-left: 24px;">
+                    <div id="allTrailsButtonDiv">
+                        <span><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAbUlEQVRIx+3SQQrAIAxEUenNewrvmkXUQgVJEwWdQEED4kb+QzSEPw0z389yi6d3JJKaWY5ryBKgxSVS9jgF9OItQkRXRaBxDYHHJeISt34XND5EEHETQcY/iEfcvAkqbD7yAaYB1PkD7AB4TAY0StbUr69awQAAAABJRU5ErkJggg=="></span> <br>
+                        <span class="navButton" style="position:relative; top:-4px;">All Trails</span>
+                    </div>
+                </div><div style="display: inline-block; box-sizing: border-box; vertical-align: top; width: 165px; margin-left: 32px;">
+                    <div id="trailTocButtonDiv">
+                        <span><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAPElEQVRIx2P4TwPAgAzoZgEDrQDdLaB6cI1aMHgtoFriGRkWEB3eg9YHo0E08BaM8CAiWoLaFlAL0NwCANELs4XjmhvVAAAAAElFTkSuQmCC"></span> <br>
+                        <span class="navButton" style="position:relative; top:-4px;">Trail TOC</span>
+                    </div>
+                </div><div style="display: inline-block; box-sizing: border-box; vertical-align: top; width: 166px; margin-left: 32px;">
+                    <div id="pageTocButtonDiv">
+                        <span><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAANUlEQVRIx2NggIL/VAYM6GDUglELqGcBA4Vg1ALqWkBOhA4uH4wG0cBbMBpEw9QCagG6WQAAX980BcIgiscAAAAASUVORK5CYII="></span> <br>
+                        <span class="navButton" style="position:relative; top:-4px;">Page TOC</span>
+                    </div>
+                </div><div style="display: inline-block; box-sizing: border-box; vertical-align: top; width: 165px; margin-left: 32px;">
+                    <div id="prevButtonDiv">
+                        <span><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuNvyMY98AAACCSURBVEhL3ZRRCsAgDEM9iez+dxJPUl0K9W+MtKMiC/RL80Lz0eKViNQxRpsvwnvHv8ssvGD8ORzjh7Odf4F34zxK30O1qImEV7Pw0nUJeEuFY/xwspZceKiWVLgqPUC1JQSAc0Iwh2+iZiIkdiqWdobknOslmM8JwcbxELaujSGl3GNH6mWcCMu2AAAAAElFTkSuQmCC"></span> <br>
+                        <span class="navButton" style="position:relative; top:-4px;">Previous</span>
+                    </div>
+                </div><div style="display: inline-block; box-sizing: border-box; vertical-align: top; width: 363px; margin-left: 32px;">
+                    <div id="nextButtonDiv">
+                        <span class="navButton" id="nextButton1" style="position:relative; top:-4px;">Next</span>
+                        <span><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAb0lEQVRIx82W2w1AIQhDmcS4/07GScDbu4AvUlMSv9QeA6RohnD3GhF9TAL7DeeK3cYuBEscgss6kBc16VlI2YTULKStIH9aMzXRgTxJlzaECpAQv+okaptSX35gFed+RBWn2jV14FBHJvVnwRT/AGJL6mWb6M7pAAAAAElFTkSuQmCC"></span> <br>
+                        <span class="navButton" id="nextButton2" style="position:relative; top:-4px;">Next</span>
+                    </div>
+                </div></div>
+        </div>
+    </nav>
+</div>
+
+
+<script>
+var prevArticleInCategory = "/angularjs/forms.html";
+var nextArticleInCategory = "/angularjs/custom-directives.html";
+</script>
+
+<script>
+layout=(v)=>{v.layout={};v.layout.cnf={breaks:[0,320,640,960,1200],colCounts:[12,12,12,12,12],widths:["100%","100%","100%","100%","1200"],paddings:[8,16,16,16,24],spacings:[8,16,16,16,32]}
+v.layout.conf=(cnf)=>{v.layout.cnf=cnf}
+v.layout.rows=(rws)=>{v.layout.rws=rws;for(var i=0;i<rws.length;i++){var kids=rws[i].el.childNodes;for(var j=0;j<kids.length;j++){if(kids[j].nodeType==Node.TEXT_NODE&&kids[j].textContent.trim().length==0){kids[j].parentNode.removeChild(kids[j])}}
+if(rws[i].cells==null){rws[i].cells=[]}
+var min=Math.min(rws[i].cells.length,kids.length);for(var k=0;k<min;k++){rws[i].cells[k].el=kids[k]}
+if(!rws[i].breaks){rws[i].breaks=v.layout.cnf.breaks}
+if(!rws[i].colCounts){rws[i].colCounts=v.layout.cnf.colCounts}
+if(!rws[i].widths){rws[i].widths=v.layout.cnf.widths}
+if(!rws[i].paddings){rws[i].paddings=v.layout.cnf.paddings}
+if(!rws[i].spacings){rws[i].spacings=v.layout.cnf.spacings}}}
+v.layout.do=()=>{for(var j=0;j<v.layout.rws.length;j++){var row=v.layout.rws[j];var wi=0;for(var i=0;i<row.breaks.length;i++){if(window.innerWidth>=row.breaks[i]){wi=i}}
+var colCount=row.colCounts[wi];var spacing=row.spacings[wi];var parentWidth=row.el.parentElement?row.el.parentElement.offsetWidth:window.innerWidth;var rowWidthStr=row.widths[wi];var fullRowWidth=0;if(rowWidthStr.endsWith("%")){var perc=parseFloat(rowWidthStr.substring(0,rowWidthStr.length-1))/100;fullRowWidth=parentWidth*perc}else{fullRowWidth=parseInt(rowWidthStr,10)}
+row.el.style.width=""+fullRowWidth+"px";var rowWidth=fullRowWidth-row.paddings[wi]*2+spacing;var colBounds=new Array(colCount+1);for(var i=0;i<colCount;i++){var calcBound=Math.floor(rowWidth*i/colCount);var prevEnd=calcBound-Math.floor(spacing/2);var nextBegin=calcBound+Math.floor(spacing/2);colBounds[i]={prevEnd:prevEnd,boundary:calcBound,nextBegin:nextBegin}}
+colBounds[colCount]={prevEnd:rowWidth-Math.floor(spacing/2),boundary:rowWidth};var fromCol=0;for(var i=0;i<row.cells.length;i++){var toCol=fromCol+row.cells[i].colwidths[wi];var cellWidth=colBounds[toCol].prevEnd-colBounds[fromCol].nextBegin;row.cells[i].el.style="display: inline-block; box-sizing: border-box; vertical-align: top;"+(cellWidth>0?"width: "+cellWidth+"px; ":"display: none;")+"margin-left: "+(fromCol==0?row.paddings[wi]:row.spacings[wi])+"px";fromCol=toCol<colCount?toCol:0}}}
+window.addEventListener("resize",(e)=>{v.layout.do()})}
+</script>
+
+<script>
+var soMeLinks =
+  soMeLink("https://twitter.com/#!/jjenkov", "Follow on Twitter", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABpElEQVRIx2NgwAOUlZWVFBUVqxQUFPYC8XMg/gvFIPZekBxIDQOpQAkIgAashhr2nwAGqVkN0kOU4UBXxQA1fCbCYHT8GaSXkOFlZBiMgkFm4HM5RYYjWYLqE2iYkxMsOIMLJU6gEUqqIaCUdB1PQlgNT4rYFAG9uRVXqgHKpejp6TFBfa8BFJsPpEHx9xtZHTgJQ9M5hkEqKipyQLkkIPs7mtxM9PizsLBgAloQBZR7jObIKgZoJsKwAKjBCOpCNSB/KcwioKYIbIkEKLceizl7GaBhiS0lLNXS0mKCGaCmpsYDtMwO6G05HBZgSyTPGXBFEtAgI3V1dS5iMqeqqqoIrvjCaQEQzyW2aAH6NgSfBc9xSILioQIYTByELACq3Y4rKeOMZGg81BEyHOgIFzx5ZS/OZIqEF4LiA4fhckD5p3gcWIUro4GS5FsgPg5UVASMRC4shpsA5R/iK8bhdQWWogJkwUSgIXrIhurr64MylBkoAaDlWtxFBRGF3Xsgvgwtd4gtED9jVEA0La6RLKFdhYPmE9pUmWhxQptKHxlQo9kCAHsFA8aGHksTAAAAAElFTkSuQmCC")
++ soMeLink("http://www.linkedin.com/pub/jakob-jenkov/0/a8/4a3", "Connect on LinkedIn", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABEklEQVRIx2NgwAOUlZWVFBUVqxQUFPYC8XMg/gvFIPZekBxIDQOpQAkIgAashhr2nwAGqVkN0kOU4UBXxQA1fCbCYHT8GaSXkOFlZBiMgkFm4HM5RYYjWYLqE2iYkxMsOIMLJU6gEYpL8XcoJtWS1fCkiCe1fAfKy4AwGZb8BSdhaDr/TwMLQHFRxQDNRP9pEEQgvJcBmitxKkKKp/9IKa5bTU2NT0VFRQoovh+P/ucMhHIrNguABosAg00MmgJ18MUDWRYA2beB+D6IbW1tzUTIApKDCCbX0tLChMzHFUR7aWjBXkLJlCILwMmUQEajBP+F1xUEigpy8Wr6FXY0L67pUuHQpcpEixPaVPrIgBrNFgAzO0iIN1MJVQAAAABJRU5ErkJggg==")
++ soMeLink("https://www.youtube.com/user/jjenkov", "Subscribe on YouTube", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABNElEQVRIx7VWSwrCMBANxYW48gTS2kJFaBfiHdq1uxbP4cJNz+K6eIQeR3oAlyI6T0Zpwlj7MYEHJZN5k8zMS6pUy/B9f+l53tF13YpQE+4MfFewYY3qO5Y0iKBksscPYE0Jn07ktKs9OVw7EJu4wvcX+WEAsQZwtO18FHkjiH4SzvmQtHxNl1YTLui/yN8oP60odMuFjrkLgmARhuE8juNpkiSToigcAN+Ygw1rsBY+Zne9Wpj73Mxh3re14SPwHBWLSDNgV4Lo3LYA8BHSVClWpWaIomhmEtD8jXCi2q2lAPARAtRKUmue544QoKncMwXaNu1ZljmSyscE2HQN0DdFq74psltk623aVWhpmg4TGufX3lWBYf2y4xzau64bQew9OMZJ7DyZRk3sPPqGuEb/tjwB4iHvG88CuqcAAAAASUVORK5CYII=")
++ soMeLink("http://jenkov.com/rss.xml", "Subscribe to RSS Feed", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABqUlEQVRIx71WwUrDQBANEqQnP6AUSZo0JDnkByLSU/HkB0g/o0jJVUrx5MGvkHxDzuKxZ/HgoeQsOXiQom9kVjbJZhON7cKDbDI7M/vezG4MQzMcxxnbtp1YlpUBObBj0HNG38jG+O0YY8BBys4+W0A2Ka3p5BxZzbGg6OC4ioLWtjm//oPjEsiHLvNezqUg5Z0w5zVa4jg2XdcdYsEM81vgtStdJU1Y0JphdZdBEJgIdtUxUPpTippquYfDJZKZknMRCLs6wbeHtur6LmGu8y7bzmG78DzvWNLtrkWLxOAmUhog01PKHs8rYMvvNzK/LTvJDO5KpYHM/2QyGSCjNdO5FUGYriZNckPXrcQ/VZDv+6ZEy5zXbARdLLxSB20ACc9wciYFWXMCC5qHYXjUsIudliLgA3gC3oB3EYToYk1yUV3cJ0qKGkUGzZdcyiMO8iLoQrAbtpnyfKYUWVemURQNpGp5ZFouuPvPhU4s9lBZprpGg8GKgtBOmC56n7DDkWhGmtOxomw03VHRE2nrYdcDRe0C2utxfZAL5yBXZkWT/Vz68viP35Yv1q4mS+AFuV8AAAAASUVORK5CYII=")
+
+function soMeLink(href, title, src) { return '<a class="iconLink" href="'+href+'" title="'+title+'" target="_blank"><img src="'+src+'"></a> '; }
+
+var socialEls = document.getElementsByClassName("authorSocialLinks");
+
+for(var i=0; i<socialEls.length; i++){
+    socialEls[i].innerHTML = soMeLinks;
+}
+</script>
+
+<script>
+function qid(id) { return document.getElementById(id); }
+
+var v = {};
+layout(v);
+v.layout.rows([
+	{ el : qid("topBarRow"), cells: [{colwidths : [6, 6, 6, 6, 6]},{colwidths : [6, 6, 6, 6, 6]}] }
+   ,{ el : qid("topAdsRow"), cells: [{colwidths : [12, 12, 12, 12, 12]}] }
+   ,{ el : qid("mainRow")  , cells: [{colwidths : [0, 0, 0, 7, 7]}, {colwidths : [24, 24, 24, 17, 17]}], colCounts:[24, 24, 24, 24, 24], spacings : [8,8,8,8,8] }
+   ,{ el : qid("bottomAdsRow")  , cells: [{colwidths : [12, 12, 12, 12, 12]}]}
+   ,{ el : qid("footerBarRow")  , cells: [{colwidths : [12, 12, 12, 12, 12]}]}
+   ,{ el : qid("bottomNavBarRow")  , cells: [{colwidths : [2, 2, 2, 2, 2]}, {colwidths : [2, 2, 2, 2, 2]}, {colwidths : [2, 2, 2, 2, 2]}, {colwidths : [2, 2, 2, 2, 2]}, {colwidths : [4, 4, 4, 4, 4]} ]}
+]);
+v.layout.do();
+</script>
+
+<!-- Nav bar code -->
+<script>
+function toggle(el){
+    if(el.isShown == null || el.isShown == false) {
+        el.isShown = true;
+        el.style.display = "block";
+    } else {
+        el.isShown = false;
+        el.style.display = "none";
+    }
+}
+
+qid("allTrailsButtonDiv").addEventListener("mouseup", function(e) {
+    location.href="/";
+    e.preventDefault();
+    e.stopPropagation();
+});
+qid("trailTocButtonDiv").addEventListener("mouseup", function(e) {
+    var tocHtml = qid("trailToc").innerHTML;
+    qid("trailTocFixedInnerDiv").innerHTML = tocHtml + "<br><br>";
+    toggle(qid("trailTocFixedDiv"));
+    e.preventDefault();
+    e.stopPropagation();
+});
+qid("trailTocFixedCloseButton").addEventListener("mouseup", function(e) {
+    toggle(qid("trailTocFixedDiv"));
+    e.preventDefault();
+    e.stopPropagation();
+});
+qid("pageTocButtonDiv").addEventListener("mouseup", function(e) {
+    location.href="#pageToc";
+    e.preventDefault();
+    e.stopPropagation();
+});
+qid("prevButtonDiv").addEventListener("mouseup", function(e) {
+    if(prevArticleInCategory != "") {
+        location.href = prevArticleInCategory;
+    } else {
+        alert("This is the first article in this trail");
+    }
+});
+qid("nextButtonDiv").addEventListener("mouseup", function(e) {
+  if(nextArticleInCategory != "") {
+    location.href= nextArticleInCategory;
+  } else {
+    alert("This is the last article in this trail.");
+  }
+  e.preventDefault();
+  e.stopPropagation();
+});
+</script>
+
+<!-- Google Analytics Script -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-4036229-3', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+<iframe scrolling="no" frameborder="0" allowtransparency="true" src="./AngularJS $timeout and $interval_files/widget_iframe.2e9f365dae390394eb8d923cba8c5b11.html" title="Twitter settings iframe" style="display: none;"></iframe><iframe name="oauth2relay398512226" id="oauth2relay398512226" src="./AngularJS $timeout and $interval_files/postmessageRelay.html" tabindex="-1" aria-hidden="true" style="width: 1px; height: 1px; position: absolute; top: -100px;"></iframe><iframe id="google_osd_static_frame_3549661901500" name="google_osd_static_frame" style="display: none; width: 0px; height: 0px;" src="./AngularJS $timeout and $interval_files/saved_resource(6).html"></iframe></body><iframe id="google_shimpl" style="display: none;" src="./AngularJS $timeout and $interval_files/saved_resource(7).html"></iframe><iframe id="google_esf" name="google_esf" src="./AngularJS $timeout and $interval_files/zrt_lookup.html" data-ad-client="ca-pub-5569543489255665" style="display: none;"></iframe></html>

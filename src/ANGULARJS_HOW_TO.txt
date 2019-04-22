@@ -1,0 +1,38 @@
+//close the modal window after a delay of 2000ms or 2 seconds
+setTimeout(function () {
+    $scope.$apply(function(){
+        //modalInstance.close('closed');
+        //what ever code that must be executed after the dealy of 2 seconds
+    });
+}, 2000);
+
+//OPTION 2
+---------------------------------------- USE $TIMEOUT to set a delay for function execution --------------
+var myapp = angular.module("myapp", []);
+
+myapp.controller("MyController", function($scope, $timeout){
+
+    $timeout(callAtTimeout, 3000);
+
+});
+
+function callAtTimeout() {
+    console.log("Timeout occurred");
+}
+The function callAtTimeout will be executed after a deal of 3000 ms or 3 seconds
+
+---------------------------------------- USE $TIMEOUT to set a delay for function execution --------------
+This example schedules a function call to callAtTimeout() after 3 seconds (3000 milliseconds).
+
+If you want to call a function on the $scope object, you can do so like this:
+
+var myapp = angular.module("myapp", []);
+
+myapp.controller("DIController", function($scope, $timeout){
+
+    $scope.callAtTimeout = function() {
+        console.log("$scope.callAtTimeout - Timeout occurred");
+    }
+
+    $timeout( function(){ $scope.callAtTimeout(); }, 3000);
+});

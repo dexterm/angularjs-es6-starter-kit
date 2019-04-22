@@ -1,80 +1,80 @@
- <div class="modal-header">
-            <h3 class="modal-title" style="margin:0 auto;" id="modal-title">{{'SIGNUP_TITLE' | translate}}</h3>
-            <button type="button" ng-click="CANCEL()" class="close" data-dismiss="modal" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-        </div>
-        
-         <FORM name="signin_form" ng-submit="submitForm()" novalidate>
-        <div class="modal-body" id="modal-body">
+<!-- https://codepen.io/Nashwa_Ashour/pen/jqWaZN -->
+<div class="modal-header">
+    <h3>{{'SIGNUP_TITLE' | translate }}</h3>
+  <button type="button" class="close" ng-click="CANCEL()" data-dismiss="modal"> &times;</button>
+</div>
 
-			<!-- begin bootstrap  grid system -->
-			<div class="container">
-		    <div class="row">
-		        
-						<div class="form-group row">
-							  <div class="col-md-4"><label for="username">{{'NAME' | translate }} </label>
-							  </div>
-							  
-							  <div class="col-md-8">
-			            <input type="text" name="username" class="form-control" ng-model="vm.user.name" required >
-            		   <P ng-show="signin_form.username.$invalid && !signin_form.username.$pristine" class="help-block">{{'REQUIRED' | translate}}</P>
-							  </div>
-						</div>	         
-		         
-		            <DIV class="form-group row">
-			            <div class="col-md-4">
-			            	<label for="name">{{'EMAIL' | translate }} </label>
-			            </div>	
-			            <div class="col-md-8">
-	            		    <input type="text" name="email" class="form-control" ng-model="vm.user.email" required >
-	            			<span ng-show="signin_form.email.$invalid && !signin_form.email.$pristine" class="help-block">{{'REQUIRED' | translate}}</span>
-			            </div>
-		            </DIV>
-		            
-		            <div class="form-group row">
-			            <div class="col-md-4">
-			            	<label for="name">{{'PASSWORD' | translate }} </label>
-			            </div>	
-			            <div class="col-md-8">
-            		    <input type="password" name="password" ng-model="vm.user.password" required >
-            		    <span ng-show="signin_form.password.$invalid && !signin_form.password.$pristine" class="help-block">{{'REQUIRED' | translate }}</span>
-            			<span ng-show="!signin_form.password.$pristine && !signin_form.c_password.$pristine && vm.password_mismatch" class="help-block">{{'PASSWORD_MISMATCH' | translate }}</span>
-		               </div>
-		            </div>
-		            
-		            <div class="form-group row">
-			            <div class="col-md-4">
-			            	<label for="name">{{'CONFIRM_PASSWORD' | translate }} </label>
-			            </div> 	
-			            <div class="col-md-8">
-            		    <input type="password" name="c_password" ng-model="vm.user.c_password" required >
-            		    <span ng-show="signin_form.c_password.$invalid && !signin_form.c_password.$pristine" class="help-block">{{'REQUIRED' | translate }}</span>
-		               </div>
-		            </div>
-		            
-		            <div class="form-group row">
-		            <div class="col-md-4">
-		            	<label for="name">{{'MOBILE' | translate }} </label>
-		             </div>
-		             <div class="col-md-8"> 	
-		            	<input type="text" name="name" class="form-control" ng-model="vm.user.mobile" ng-minlength=10>
-            			<span ng-show="signin_form.name.$invalid && !signin_form.name.$pristine" class="help-block">{{'INVALID_MOBILE' | translate}}</span>
-		            </div>
-		            </div>
-		            
-		        
-		    </div>
-		</div>        
-		<!-- end bootstrap  grid system -->
-        
-        </div>
-        
-        
-        <div class="modal-footer">
-                <button type="submit" class="btn btn-primary" ng-disabled="signin_form.$invalid">{{'SIGN_ME_UP' | translate}}</button>
-        
-            <button class="btn btn-primary" type="button" ng-click="OK(vm.user)">{{'OK' | translate}}</button>
-            <button class="btn btn-warning" type="button" ng-click="CANCEL()">{{'CANCEL' | translate}}</button>
-        </div>
-</FORM>
+  <form   class="form-horizontal " name="signup_form" ng-submit="submitForm()" novalidate>
+
+
+
+    <div class="modal-body">
+        <!-- name -->
+        <div class="form-group  ">
+              <label class="form-control-label">{{'NAME' | translate}}  <i class="fa fa-check" ng-if="signup_form.name.$valid && !signup_form.name.$pristine"></i>
+              </label>
+
+              <input  ng-class="{ 'is-invalid' : signup_form.name.$invalid && signup_form.name.$dirty, 'is-valid': signup_form.name.$valid && signup_form.name.$dirty}"
+              type="text" id="name" name="name" class="form-control" ng-model="vm.user.name" required min-length=3>
+              <div ng-if="signup_form.name.$invalid && signup_form.name.$dirty" class="invalid-feedback">
+                        {{'REQUIRED' | translate}} &nbsp;
+              </div>
+
+          </div>
+
+          <!-- email -->
+          <div class="form-group  ">
+                <label class="form-control-label">{{'EMAIL' | translate}}  <i class="fa fa-check" ng-if="signup_form.email.$valid && !signup_form.email.$pristine"></i>
+                </label>
+
+                <input  ng-class="{ 'is-invalid' : signup_form.email.$invalid && signup_form.email.$dirty, 'is-valid': signup_form.email.$valid && signup_form.email.$dirty}"
+                type="text" id="email" name="email" class="form-control"
+                ng-pattern="/^[_\.0-9a-z-]+@([0-9a-z][0-9a-z-]+)+((\.)[a-z]{2,})+$/"
+                ng-model="vm.user.email" required >
+                <div ng-if="signup_form.email.$invalid && signup_form.email.$dirty" class="invalid-feedback">
+                          {{'REQUIRED' | translate}} &nbsp;
+                </div>
+
+            </div>
+
+           <!-- PASSWORD -->
+           <div class="form-group ">
+                  <label class="form-control-label" for="PASSWORD">{{'PASSWORD' | translate}}
+                      <i class="fa fa-check" ng-if="signup_form.password.$valid && !signup_form.password.$pristine"></i>
+                  </label>
+                  <input type="password" class="form-control"
+                  ng-model="vm.user.password"
+                  ng-class="{ 'is-invalid' : signup_form.password.$invalid && signup_form.password.$dirty, 'is-valid': signup_form.password.$valid && signup_form.password.$dirty}"
+                  name="password" id="password" required
+          min-length=6 ng-pattern="/^(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{6,20}$/">
+                  <div ng-if="signup_form.password.$invalid && !signup_form.password.$pristine" class="invalid-feedback ">{{'VALID_PASSWORD' | translate }}</div>
+              </div>
+
+              <!-- CONFIRM PASSWORD -->
+              <div class="form-group ">
+                     <label class="form-control-label" for="CPASSWORD">{{'CONFIRM_PASSWORD' | translate}}
+                         <i class="fa fa-check" ng-if="signup_form.c_password.$valid && !signup_form.c_password.$pristine"></i>
+                     </label>
+                     <input type="password" class="form-control"
+                     ng-model="vm.user.c_password"
+                     ng-class="{ 'is-invalid' : signup_form.c_password.$invalid && signup_form.c_password.$dirty, 'is-valid': signup_form.c_password.$valid && signup_form.c_password.$dirty}"
+                     name="c_password" id="c_password" required min-length=6>
+                     <div ng-if="signup_form.c_password.$invalid && !signup_form.c_password.$pristine" class="invalid-feedback ">{{'REQUIRED' | translate }}</div>
+                 </div>
+
+    </div>
+    <!-- separator -->
+               <div ng-if="vm.success" class="form-group col-xs-6 alert alert-success">
+                 <strong>{{'SUCCESS' | translate}}</strong>
+               </div>
+
+            <div ng-if="vm.error" class="form-group col-xs-6 alert alert-danger">
+              <strong>{{'FAILURE' | translate}}!</strong>
+              {{vm.error_msg}}
+            </div>
+
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" ng-disabled="signup_form.$invalid">{{'SIGN_ME_UP' |translate}}</button>
+        <button class="btn btn-warning" ng-click="CANCEL()">{{'CANCEL' | translate}}</button>
+    </div>
+</form>

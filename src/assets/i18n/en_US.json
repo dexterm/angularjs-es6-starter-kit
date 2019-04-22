@@ -18,7 +18,8 @@
   "MOBILE":"Mobile",
   "SIGNUP_TITLE":"Signup",
   "PASSWORD_MISMATCH":"Password and Confirm password must be identical",
-  "REQUIRED":"Required field",
+  "REQUIRED":"Please fill out this field",
+  "VALID_PASSWORD":"Password should be min 6 characters, with one upper case one number and one special character",
   "SIGN_ME_UP":"Sign me up!",
   "OK":"Ok",
   "CANCEL":"Cancel",
@@ -30,5 +31,8 @@
   "FACEBOOK":"Facebook",
   "KEEP_ME_SIGNED_IN":"Keep me signed in",
   "NEW_HERE":"New here",
-  "LOGIN_VIA":"Login via"
+  "LOGIN_VIA":"Login via",
+  "DUPLICATE":"Duplicate user, a user with similar email exists",
+  "SUCCESS":"Success",
+  "FAILURE":"Failure"
 }

@@ -6,6 +6,7 @@ import './nav-header'
 import './register'
 import './login'
 import './profile'
+import './skills'
 
 /* setup a module to attach all the components
 the components must import this file
@@ -17,5 +18,6 @@ module.exports = angular.module('app.components', [
   'app.navheader',
   'app.register',
   'app.login',
-  'app.profile'
+  'app.profile',
+  'app.skills'
 ])

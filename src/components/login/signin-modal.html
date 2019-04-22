@@ -1,0 +1,55 @@
+<!-- https://codepen.io/Nashwa_Ashour/pen/jqWaZN -->
+<div class="modal-header">
+    <h3>{{'SIGNIN_TITLE' | translate }}</h3>
+  <button type="button" class="close" ng-click="CANCEL()" data-dismiss="modal"> &times;</button>
+</div>
+
+  <form   class="form-horizontal " name="signin_form" ng-submit="submitForm()" novalidate>
+
+
+
+    <div class="modal-body">
+        <!-- username/email -->
+        <div class="form-group  ">
+              <label class="form-control-label">{{'EMAIL' | translate}}  <i class="fa fa-check" ng-if="signin_form.username.$valid && !signin_form.username.$pristine"></i>
+              </label>
+
+              <input  ng-class="{ 'is-invalid' : signin_form.username.$invalid && signin_form.username.$dirty, 'is-valid': signin_form.username.$valid && signin_form.username.$dirty}"
+              type="email" id="username" name="username" class="form-control" ng-pattern="/^[_\.0-9a-z-]+@([0-9a-z][0-9a-z-]+)+((\.)[a-z]{2,})+$/" ng-model="vm.user.username" required>
+              <!-- <div class="valid-feedback">Valid</div> -->
+              <div ng-if="signin_form.username.$invalid && signin_form.username.$dirty" class="invalid-feedback">
+                        {{'REQUIRED' | translate}} &nbsp;
+              </div>
+
+          </div>
+
+
+           <!-- PASSWORD -->
+           <div class="form-group ">
+                  <label class="form-control-label" for="PASSWORD">{{'PASSWORD' | translate}}
+                      <i class="fa fa-check" ng-if="signin_form.password.$valid && !signin_form.password.$pristine"></i>
+                  </label>
+                  <input type="password" class="form-control"
+                  ng-model="vm.user.password"
+                  ng-class="{ 'is-invalid' : signin_form.password.$invalid && signin_form.password.$dirty, 'is-valid': signin_form.password.$valid && signin_form.password.$dirty}"
+                  name="password" id="password" required>
+                  <div ng-if="signin_form.password.$invalid && !signin_form.password.$pristine" class="invalid-feedback ">{{'REQUIRED' | translate }}</div>
+              </div>
+
+    </div>
+
+    <div ng-if="vm.success" class="form-group col-xs-6 alert alert-success">
+      <strong>{{'SUCCESS' | translate}}</strong>
+    </div>
+
+ <div ng-if="vm.error" class="form-group col-xs-6 alert alert-danger">
+   <strong>{{'FAILURE' | translate}}!</strong>
+   {{vm.error_msg}}
+ </div>
+
+
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" ng-disabled="signin_form.$invalid">{{'LET_ME_IN' |translate}}</button>
+        <button class="btn btn-warning" ng-click="CANCEL()">{{'CANCEL' | translate}}</button>
+    </div>
+</form>

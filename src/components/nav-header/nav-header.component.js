@@ -6,7 +6,5 @@ import template from './nav-header.component.html';
 export default {
 	controller: controller,
 	template: template,
+	controllerAs: 'vm'
 }
-
-
-
