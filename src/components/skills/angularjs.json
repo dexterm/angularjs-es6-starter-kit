@@ -1,0 +1,10 @@
+
+const AngularContent = {
+  'tags':{'angularjs', 'ui-router','restangular', 'resolve route', 'angularjs component'},
+  content: [
+    {'type':0,'url': 'https://medium.com/@bretcameron/how-to-make-your-code-faster-using-javascript-sets-b432457a4a77', 'title':'How to make your code faster using JavaScript Sets', 'date':'','category':'', content:''},
+    {'type':0, 'url': 'https://medium.com/@_jmoller/javascript-conventions-and-best-practices-9e980751c70f', 'title':'Javascript Conventions and Best Practices', 'date':'','category':'', content:''},
+  ]
+}
+
+export default AngularContent;

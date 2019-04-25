@@ -2,7 +2,7 @@
 import SkillList from '../../config/skills.config'
 
 export default class SkillService {
-  constructor ($q, $log) {
+  constructor ($q, $log, $filter) {
     'ngInject'
     this.$q = $q
     this.$log = $log
@@ -11,10 +11,15 @@ export default class SkillService {
   /* check if strings are identical */
     isSkillPresent(skillArray, skillStr) {
       var $log = this.$log
-      return skillArray.some( function( item ) {
-        $log.info('verifying skill', item.title )
-         return skillStr.toLowerCase() === item.title.toLowerCase();
-       });
+      return skillArray.find(function( item ) {
+                     return skillStr.toLowerCase() === item.filename.toLowerCase();
+              });
+
+      /*return skillArray.some( function( item ) {
+        $log.info('verifying skill', item )
+          if ( skillStr.toLowerCase() === item.filename.toLowerCase() )
+             return item
+       });*/
 
   }
 
@@ -27,16 +32,18 @@ export default class SkillService {
      this.$log.info('skill', skillStr)
      let $q = this.$q
      let defer = $q.defer();
-      let validSkill = false
+      let validSkill = {}
+
      if (skillStr)
         validSkill = this.isSkillPresent( SkillList.skills, skillStr )
+        //validSkill = $filter('filter')(skillList.skills, {filename: skillStr}, true)[0];
 
       this.$log.info('VERIFICATION COMPLETE' , validSkill)
      //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some
      if (validSkill)
-         defer.resolve(true)
+         defer.resolve( validSkill )
      else
-         defer.reject(false)
+         defer.reject( false )
 
      return defer.promise;
   }
@@ -44,6 +51,12 @@ export default class SkillService {
   /* return list of skills */
   getSkills() {
     return SkillList
+  }
+
+  getSkillList( filename ) {
+    skillContentList = [
+      {'id': 1, 'filename':'python', 'list':[]  }
+    ]
   }
 
 }

@@ -32,19 +32,84 @@ appRoutes.push(
 
              if ($stateParams.skillName) {
                   SkillService.isValidSkill($stateParams.skillName)
-                               .then( function( status ) {
-                                 console.debug('rrrrrrrrrrrr', status)
-                                  defer.resolve(status)
+                               .then( function( skillObject ) {
+                                  return defer.resolve( skillObject )
                                }, function(fail) {
-                                   defer.reject(fail)
+                                   return defer.reject('404')
                                })
              } else {
-               defer.reject('Invalid Skill')
+               return defer.reject('404')
              }
 
              return defer.promise;
+        },
+
+        blogContent: function ($q,  $log, $stateParams, NoAPI) {
+            var defer = $q.defer()
+            if (!$stateParams.skillName) {
+              return defer.reject('404')
+            }
+            if ($stateParams.skillName) {
+                let res = NoAPI.one('/skill/' + $stateParams.skillName).get()
+                res.then(function( response ) {
+                  $log.info('JSON', response.plain() )
+                  return defer.resolve( response.plain() )
+                }, function(err) {
+                    return defer.reject('404')
+                })
+
+            }
+            return defer.promise;
         }
+
     },
 
 	 }
 );
+
+/*
+*  how to handle failure to resolve a route using ui-router transition
+see the deliberate use of reject, the reason for reject is 404 , this value is accessible in transition.onError
+
+{
+   name: 'app.skills',
+   url: '/skills/:skillName',
+   data: {
+     auth: true
+   },
+   views: {
+     'main@app': {
+       //component: "skills",
+       //check how to use resolve with components
+       //https://stackoverflow.com/questions/38346600/angular-1-5-components-with-ui-router-resolve-unknown-provider
+       component: 'skills'
+     },
+     params: {
+      alerts: null,
+      skillName: null
+    }
+  },
+  resolve:{ //tthis ensure that only a valid skill gets passed on the controller
+      validSkill: function($q, $stateParams, SkillService) {
+           var defer = $q.defer()
+
+           if ($stateParams.skillName) {
+                SkillService.isValidSkill($stateParams.skillName)
+                             .then( function( status ) {
+                               console.debug('rrrrrrrrrrrr', status)
+                                return defer.reject('404')
+                             }, function(fail) {
+                                 return defer.reject('404')
+                             })
+           } else {
+             return defer.reject('Invalid Skill')
+           }
+
+           return defer.promise;
+      }
+  },
+
+ }
+
+*
+*/

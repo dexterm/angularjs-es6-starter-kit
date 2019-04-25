@@ -1,23 +1,18 @@
-<!-- <section class="container-fluid" ng-include="'./components/skills/' + vm.validSkill.filename + '.html'">
-</section>
--->
-
 <!-- Blog posts section -->
 	<section class="blog-section spad">
 		<div class="container">
-      <div class="row">
-        <div class="col-lg-9"> <h2>{{vm.validSkill.title}}</div>
-        </div>
 			<div class="row">
 				<div class="col-lg-9">
 					<div class="blog-post">
-						<!-- <div class="post-date">Apr 23, 2019</div> -->
+						<div class="post-date">Apr 23, 2019</div>
 
             <ul class="list-group list-group-flush">
-              <li class="list-group-item" ng-repeat="item in vm.blogContent.content">
-              <h5 ng-if="item.type == 0"><a href="{{item.url}}">{{item.title}}</a></h5>
-              <h5 ng-if="item.type == 1">{{item.title}}</h5>
-              <div ng-bind-html="{{item.content}}" ng-if="item.type == 1"></div>
+              <li class="list-group-item">
+              <h5></h5>
+              </li>
+              <li class="list-group-item">
+                <h5><a href="">
+                  How to make your code faster using JavaScript Sets</a></h5>
               </li>
             </ul>
 					</div>
@@ -44,10 +39,16 @@
 					<div class="sb-widget">
 						<h2 class="sb-title">Latest Posts</h2>
 						<div class="sb-latest-post-widget">
-							<div class="lp-item" ng-repeat="item in vm.latestPosts | limitTo:10">
-								<div class="lp-thumb set-bg" style="background-image: url('/assets/images/cyclist-icon.png')"></div>
+							<div class="lp-item">
+								<div class="lp-thumb set-bg" data-setbg="/assets/images/cyclist-icon.png"></div>
 								<div class="lp-content">
-									<h6><a href="{{item.url}}">{{item.title}}</a></h6>
+									<h6><a href="http://www.pythontutor.com/c.html#mode=edit"">Check out python-tutor to view stack frames</a></h6>
+								</div>
+							</div>
+							<div class="lp-item">
+								<div class="lp-thumb set-bg" data-setbg="/assets/images/footer-thumb/1.jpg"></div>
+								<div class="lp-content">
+									<h6><a  href="http://dbader.org">Python Tricks curated by Dan Bader (dbader.org)</a></h6>
 								</div>
 							</div>
 
@@ -57,9 +58,11 @@
 					<div class="sb-widget">
 						<h2 class="sb-title">Tag</h2>
 						<div class="sb-tag-widget">
-              <span class="big-tag" ng-repeat="tag in vm.blogContent.tags"> {{tag}} </span>
-
-
+							<a href="">development</a>
+							<a href="" class="big-tag">Python</a>
+							<a href="">stack frame</a>
+							<a href="">multi processing</a>
+							<a href="">tips</a>
 						</div>
 					</div>
 				</div>

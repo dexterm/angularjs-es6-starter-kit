@@ -1,4 +1,6 @@
 import routerHelperService from './services/router-helper/router-helper.service';
+import { UiRouterEvents } from './services/router-helper/ui-router-state-handler'
+
 import userService from './services/user/user.service';
 import APIService from './services/http/API.service';
 import NoAPIService from './services/http/NoAPI.service';
@@ -22,4 +24,5 @@ coreModule.service('NoAPI', NoAPIService);
 coreModule.service('SkillService', SkillService)
 //coreModule.factory('Sat', SatService)
 coreModule.constant('SiteConfig', SiteConfig)
+coreModule.run(UiRouterEvents)
 export default coreModule;

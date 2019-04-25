@@ -80,8 +80,32 @@ export default [
 	          templateUrl: './pages/landing/landing.page.html'
 	        }
 	      }
-	 }
-
-
+	 },
+	 {
+ 		  name: 'app.notfound',
+ 	      url: '/404',
+ 	      data: {
+ 	        auth: false,
+ 	        label: 'Page Not Found',
+ 	      },
+ 	      views: {
+ 	        'main@app': {
+ 	          templateUrl: './pages/error/404.page.html'
+ 	        }
+ 	      }
+ 	 },
+	 {
+ 		  name: 'app.forbidden',
+ 	      url: '/forbidden',
+ 	      data: {
+ 	        auth: false,
+ 	        label: 'Access Forbidden',
+ 	      },
+ 	      views: {
+ 	        'main@app': {
+ 	          templateUrl: './pages/error/forbidden.page.html'
+ 	        }
+ 	      }
+ 	 }
 
 ];
