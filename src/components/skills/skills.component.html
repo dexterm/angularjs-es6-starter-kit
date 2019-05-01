@@ -15,9 +15,9 @@
 
             <ul class="list-group list-group-flush">
               <li class="list-group-item" ng-repeat="item in vm.blogContent.content">
-              <h5 ng-if="item.type == 0"><a href="{{item.url}}">{{item.title}}</a></h5>
+              <h5 ng-if="item.type == 0"><a href="{{item.url}}" target="_blank"><span ng-bind-html="item.title"></span></a></h5>
               <h5 ng-if="item.type == 1">{{item.title}}</h5>
-              <div ng-bind-html="{{item.content}}" ng-if="item.type == 1"></div>
+              <div ng-bind-html="item.content" ng-if="item.type == 1"></div>
               </li>
             </ul>
 					</div>
@@ -33,7 +33,7 @@
 				 <!-- widget -->
 					<div class="sb-widget">
 						<a href="" class="add">
-							<img src="/assets/images/angular.png" alt="#">
+							<img src="/assets/images/{{vm.validSkill.filename}}.png" alt="#">
 						</a>
 						<!--<form class="sb-search-widget">
 							<input type="text">
@@ -47,7 +47,7 @@
 							<div class="lp-item" ng-repeat="item in vm.latestPosts | limitTo:10">
 								<div class="lp-thumb set-bg" style="background-image: url('/assets/images/cyclist-icon.png')"></div>
 								<div class="lp-content">
-									<h6><a href="{{item.url}}">{{item.title}}</a></h6>
+									<h6><a href="{{item.url}}" target="_blank">{{item.title}}</a></h6>
 								</div>
 							</div>
 

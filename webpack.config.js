@@ -18,8 +18,8 @@ const config = {
 	entry: {
 		'vendor': './src/vendor.module.js',
 		'app': './src/app.module.js',
-		'mdbcss': './node_modules/mdbootstrap/css/mdb.min.css',
-		'mdbjs': './node_modules/mdbootstrap/js/mdb.min.js'
+		//'mdbcss': './node_modules/mdbootstrap/css/mdb.min.css',
+		//'mdbjs': './node_modules/mdbootstrap/js/mdb.min.js'
 	},
 	devtool: devMode ? 'source-map': 'none',
 	output: {
@@ -89,10 +89,10 @@ const config = {
 			filename: "styles/[name].[hash].css",
 			chunkFilename: "styles/[id].[hash].css"
         }),
-		new MiniCssExtractPlugin({
+		/*new MiniCssExtractPlugin({
 					filename: "mdbootstrap/[name].[hash].css",
 					chunkFilename: "mdbootstrap/[id].[hash].css"
-		}),
+		}),*/
 
 		new webpack.HotModuleReplacementPlugin(),
 

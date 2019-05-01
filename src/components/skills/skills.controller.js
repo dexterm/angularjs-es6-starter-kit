@@ -21,13 +21,18 @@ export default class SkillsController {
 		var vm = this
 	}
 
-	//only extract content who type=0
+	//only extract content that have type=0
 	filterLatestPosts = () => {
 		let vm = this
-		this.blogContent.content.forEach(function (item) {
+		let maxItems = 10
+		//create a new array of maxItems and also filter item.type == 0
+		vm.latestPosts = this.blogContent.content.filter( function(item, idx) {
+								return item.type == 0 && idx < maxItems
+							})
+		/*this.blogContent.content.forEach(function (item) {
 			  if (item.type == 0)
 				   vm.latestPosts.push(item)
-		})
+		})*/
 	}
 
 

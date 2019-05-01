@@ -7,9 +7,9 @@ const SkillsConfig = {
     {'url': 'app.skills.docker', 'title': 'Docker', 'icon': '/assets/images/cyclist-icon-24.png', 'filename': 'docker'},
     {'url': 'app.skills.appium', 'title': 'Appium', 'icon': '/assets/images/cyclist-icon-24.png', 'filename': 'appium'},
     {'url': 'app.skills.angularjs', 'title': 'Angularjs 1.x', 'icon': '/assets/images/cyclist-icon-24.png', 'filename': 'angularjs'},
-    {'url': 'app.skills.php', 'title': 'PHP', 'icon': './assets/images/cyclist-icon-24.png', 'filename': 'php'},
+    {'url': 'app.skills.php', 'title': 'PHP', 'icon': './assets/images/cyclist-icon-24.png', 'filename': 'php-mysql'},
     {'url': 'app.skills.git', 'title': 'GIT', 'icon': '/assets/images/cyclist-icon-24.png', 'filename': 'git'},
-    {'url': 'app.skills.bash', 'title': 'Shell Script', 'icon': '/assets/images/cyclist-icon-24.png', 'filename': 'shell'},
+    {'url': 'app.skills.bash', 'title': 'Shell Script', 'icon': '/assets/images/cyclist-icon-24.png', 'filename': 'bash'},
     {'url': 'app.skills.rust', 'title': 'RUST', 'icon': '/assets/images/cyclist-icon-24.png', 'filename': 'rust'}
   ]
 }

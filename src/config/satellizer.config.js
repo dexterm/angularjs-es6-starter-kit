@@ -102,7 +102,7 @@ export function SatellizerConfig ($authProvider) {
   
   $authProvider.storage = 'localStorage'; // or 'sessionStorage'
 
-  $authProvider.authHeader = 'Authorization';
+  //$authProvider.authHeader = 'Authorization';
   $authProvider.authToken = 'Bearer';
   $authProvider.loginUrl = '/api/auth/login'
   $authProvider.signupUrl = '/api/auth/register'

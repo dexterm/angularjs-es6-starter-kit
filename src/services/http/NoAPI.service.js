@@ -1,7 +1,7 @@
 //This class is for NON API requests
 
 export default class NoAPIService {
-  constructor (Restangular, $window) {
+  constructor (Restangular, $window, SiteConfig) {
     'ngInject'
     // content negotiation
     var headers = {
@@ -11,7 +11,7 @@ export default class NoAPIService {
 
     return Restangular.withConfig(function (RestangularConfigurer) {
       RestangularConfigurer
-        .setBaseUrl('http://localhost/')
+        .setBaseUrl(SiteConfig.baseUrl)
         .setDefaultHeaders(headers)
         .setErrorInterceptor(function (response) {
           if (response.status === 422) {
@@ -20,12 +20,12 @@ export default class NoAPIService {
             // }
           }
         })
-        .addFullRequestInterceptor(function (element, operation, what, url, headers) {
+        /*.addFullRequestInterceptor(function (element, operation, what, url, headers) {
           var token = $window.localStorage.satellizer_token
           if (token) {
             headers.Authorization = 'Bearer ' + token
           }
-        })
+        })*/
         .addResponseInterceptor(function (response, operation, what) {
           if (operation === 'getList') {
             var newResponse = response.data[what]
