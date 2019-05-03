@@ -1,0 +1,20 @@
+Problem:   Error: [$injector:unpr] Unknown provider: eProvider <- e
+Solution:
+  /* when using gulp or webpack ui-router resolve functions must be properly converted to es6 format
+      ex:
+      resolve: {
+          authenticate: function (Auth) {
+            return Auth.getAuthResolve();
+          }
+        }
+        should be written as
+        resolve: {
+            authenticate: ['Auth', function (Auth) {
+              return Auth.getAuthResolve();
+            }]
+          }
+
+    */
+
+----------------
+

@@ -27,10 +27,10 @@ const appModule = angular
         'app.partials',
         //'pascalprecht.translate',
         //'satellizer',
-        'mm.acl',
+        //'mm.acl',
         'ui.bootstrap',
-		    'datatables',
-        'datatables.bootstrap',
+		    //'datatables',
+        //'datatables.bootstrap',
 		//'ngStorage'
 	]);
 

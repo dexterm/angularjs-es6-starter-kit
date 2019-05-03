@@ -3,7 +3,7 @@ const SkillsConfig = {
   skills: [
     {'url': 'app.skills.python', 'title': 'Python', 'icon': '/assets/images/cyclist-icon-24.png', 'filename': 'python'},
     {'url': 'app.skills.openstf', 'title': 'OpenSTF', 'icon': './assets/images/cyclist-icon-24.png', 'filename': 'stf'},
-    {'url': 'app.skills.c', 'title': 'c', 'icon': '/assets/images/cyclist-icon-24.png', 'filename': 'c'},
+    {'url': 'app.skills.c', 'title': 'C', 'icon': '/assets/images/cyclist-icon-24.png', 'filename': 'c'},
     {'url': 'app.skills.docker', 'title': 'Docker', 'icon': '/assets/images/cyclist-icon-24.png', 'filename': 'docker'},
     {'url': 'app.skills.appium', 'title': 'Appium', 'icon': '/assets/images/cyclist-icon-24.png', 'filename': 'appium'},
     {'url': 'app.skills.angularjs', 'title': 'Angularjs 1.x', 'icon': '/assets/images/cyclist-icon-24.png', 'filename': 'angularjs'},

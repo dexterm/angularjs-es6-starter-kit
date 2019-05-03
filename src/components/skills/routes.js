@@ -26,8 +26,24 @@ appRoutes.push(
         skillName: null
       }
     },
+    /* when using gulp or webpack ui-router resolve functions must be properly converted to es6 format
+      ex:
+      resolve: {
+          authenticate: function (Auth) {
+            return Auth.getAuthResolve();
+          }
+        }
+        should be written as
+        resolve: {
+            authenticate: ['Auth', function (Auth) {
+              return Auth.getAuthResolve();
+            }]
+          }
+
+    */
+
     resolve:{ //tthis ensure that only a valid skill gets passed on the controller
-        validSkill: function($q, $stateParams, SkillService) {
+        validSkill: ['$q', '$stateParams', 'SkillService', function($q, $stateParams, SkillService) {
              var defer = $q.defer()
 
              if ($stateParams.skillName) {
@@ -42,9 +58,9 @@ appRoutes.push(
              }
 
              return defer.promise;
-        },
+        }],
 
-        blogContent: function ($q,  $log, $stateParams, NoAPI) {
+        blogContent: ['$q',  '$log', '$stateParams', 'NoAPI', function( $q,  $log, $stateParams, NoAPI ) {
             var defer = $q.defer()
             if (!$stateParams.skillName) {
               return defer.reject('404')
@@ -60,7 +76,7 @@ appRoutes.push(
 
             }
             return defer.promise;
-        }
+        }]
 
     },
 

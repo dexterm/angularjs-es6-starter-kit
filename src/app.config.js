@@ -6,12 +6,12 @@ import {DebugConfig} from './config/debug.config'
 
 const configModule = angular.module('app.config', [
     //'app.core' place any module names here
-	'mm.acl',
-    'pascalprecht.translate',
+	//'mm.acl',
+    //'pascalprecht.translate',
     'satellizer'
 ]);
 
-configModule.config(AclConfig)
+configModule
 			 .config(SatellizerConfig)
 			 .config(TranslateConfig)
 			 .config(DebugConfig)
