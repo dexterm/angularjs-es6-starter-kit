@@ -12,6 +12,9 @@ const coreModule = angular.module('app.core', [
 	'restangular',
 	'pascalprecht.translate',
 	'LocalStorageModule'
+	/*'angulartics',
+	'angulartics.google.analytics',
+	'angulartics.google.tagmanager'*/
 ]);
 
 // inject services, config, filters and re-usable code

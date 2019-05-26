@@ -53,15 +53,18 @@
     "angular-translate-loader-static-files": "^2.18.1",
     "angular-ui-bootstrap": "^2.5.6",
     "angular-ui-router": "1.0.22",
+    "angulartics": "^1.6.0",
+    "angulartics-google-analytics": "^0.5.0",
+    "angulartics-google-tag-manager": "0.0.1",
+    "angulartics-scroll": "^1.0.0",
     "bootstrap": "4.3.1",
     "datatables.net": "^1.10.19",
     "datatables.net-bs4": "^1.10.19",
     "font-awesome": "4.7.0",
     "jquery": "3.3.1",
-    "mdbootstrap": "^4.7.7",
     "popper.js": "1.14.7",
     "restangular": "^1.6.1",
     "satellizer": "^0.15.5",
-    "ui-router-breadcrumbs": "^1.2.4"
+    "ui-router-breadcrumbs": "1.2.4"
   }
 }

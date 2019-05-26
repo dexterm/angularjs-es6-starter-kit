@@ -34,7 +34,9 @@ check material kit documentation https://demos.creative-tim.com/material-kit/doc
 			Skills
 			</a>
 			<div class="dropdown-menu" aria-labelledby="signin">
-					<a class="dropdown-item" ng-repeat="skill in vm.skills" ui-sref="app.skills({'skillName':skill.filename})" ui-sref-options="{reload:true}">
+					<a class="dropdown-item" ng-repeat="skill in vm.skills"
+					analytics-on analytics-event="Click" analytics-category="Skills" analytics-label="{{skill.title}}"
+					ui-sref="app.skills({'skillName':skill.filename})" ui-sref-options="{reload:true}">
 						{{skill.title}}</a>
 
 			</div>

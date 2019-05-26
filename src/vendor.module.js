@@ -17,6 +17,10 @@ import 'satellizer';
 import 'angular-translate-loader-static-files';
 import 'angular-ui-bootstrap';
 import 'angular-local-storage';
+/*import 'angulartics';
+import 'angulartics-google-analytics';
+import 'angulartics-scroll';
+import 'angulartics-google-tag-manager'*/
 /*import 'mdbootstrap';
 import 'mdbootstrap/js/mdb';
 import 'mdbootstrap/js/modules/velocity';
