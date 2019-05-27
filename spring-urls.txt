@@ -13,4 +13,4 @@ https://dzone.com/articles/spring-boot-run-and-build-in-docker
 https://linuxize.com/post/how-to-remove-docker-images-containers-volumes-and-networks/
 https://medium.com/@hudsonmendes/docker-spring-boot-choosing-the-base-image-for-java-8-9-microservices-on-linux-and-windows-c459ec0c238
 https://stackoverflow.com/questions/46792438/build-gradle-project-inside-a-docker
-https://discuss.gradle.org/t/how-to-run-a-gradle-java-project-in-docker/24838
+https://discuss.gradle.org/t/how-to-run-a-gradle-java-project-in-docker/24838S
