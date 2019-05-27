@@ -1,0 +1,16 @@
+https://hellokoding.com/full-stack-crud-web-app-and-restful-apis-web-services-example-with-spring-boot-jpa-hibernate-mysql-vuejs-and-docker/
+https://www.callicoder.com/spring-boot-rest-api-tutorial-with-mysql-jpa-hibernate/
+http://zetcode.com/springboot/modelattribute/
+https://www.baeldung.com/spring-mvc-and-the-modelattribute-annotation
+
+
+
+
+https://stackoverflow.com/questions/54152818/docker-compose-unknownhostexception-but-docker-run-works
+https://github.com/pajikos/java-examples/blob/master/spring-boot-docker-build/Dockerfile
+https://dzone.com/articles/spring-boot-run-and-build-in-docker
+
+https://linuxize.com/post/how-to-remove-docker-images-containers-volumes-and-networks/
+https://medium.com/@hudsonmendes/docker-spring-boot-choosing-the-base-image-for-java-8-9-microservices-on-linux-and-windows-c459ec0c238
+https://stackoverflow.com/questions/46792438/build-gradle-project-inside-a-docker
+https://discuss.gradle.org/t/how-to-run-a-gradle-java-project-in-docker/24838
